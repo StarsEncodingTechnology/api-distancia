@@ -1,0 +1,85 @@
+{
+	"results": [
+		{
+			"address_components": [
+				{
+					"long_name": "555",
+					"short_name": "555",
+					"types": [
+						"street_number"
+					]
+				},
+				{
+					"long_name": "Rua Decio Silverio de Souza",
+					"short_name": "R. Decio Silverio de Souza",
+					"types": [
+						"route"
+					]
+				},
+				{
+					"long_name": "Parque Residencial Santa Maria",
+					"short_name": "Parque Res. Santa Maria",
+					"types": [
+						"political",
+						"sublocality",
+						"sublocality_level_1"
+					]
+				},
+				{
+					"long_name": "Franca",
+					"short_name": "Franca",
+					"types": [
+						"administrative_area_level_2",
+						"political"
+					]
+				},
+				{
+					"long_name": "São Paulo",
+					"short_name": "SP",
+					"types": [
+						"administrative_area_level_1",
+						"political"
+					]
+				},
+				{
+					"long_name": "Brazil",
+					"short_name": "BR",
+					"types": [
+						"country",
+						"political"
+					]
+				},
+				{
+					"long_name": "14406-563",
+					"short_name": "14406-563",
+					"types": [
+						"postal_code"
+					]
+				}
+			],
+			"formatted_address": "R. Decio Silverio de Souza, 555 - Parque Res. Santa Maria, Franca - SP, 14406-563, Brazil",
+			"geometry": {
+				"location": {
+					"lat": -20.530623,
+					"lng": -47.44202989999999
+				},
+				"location_type": "RANGE_INTERPOLATED",
+				"viewport": {
+					"northeast": {
+						"lat": -20.5292740197085,
+						"lng": -47.4406809197085
+					},
+					"southwest": {
+						"lat": -20.5319719802915,
+						"lng": -47.4433788802915
+					}
+				}
+			},
+			"place_id": "EllSLiBEZWNpbyBTaWx2ZXJpbyBkZSBTb3V6YSwgNTU1IC0gUGFycXVlIFJlcy4gU2FudGEgTWFyaWEsIEZyYW5jYSAtIFNQLCAxNDQwNi01NjMsIEJyYXppbCIxEi8KFAoSCRtzb4CFp7CUERZVatXB_BJ1EKsEKhQKEgnDuIuuhaewlBFltjlGIwlG7w",
+			"types": [
+				"street_address"
+			]
+		}
+	],
+	"status": "OK"
+}
