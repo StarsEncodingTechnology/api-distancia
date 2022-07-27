@@ -1,0 +1,13 @@
+{
+    "origem": {
+        "cidade": "Franca",
+        "estado": "SP",
+        "codIbge": "3513207"
+    },
+    "destino": {
+        "cidade": "Franca",
+        "estado": "SP",
+        "codIbge": "3513207"
+    },
+    "distancia": 21
+}
