@@ -1,9 +1,11 @@
-import supertest from "supertest";
 import distanciaJson from "@test/fixtures/resposta_distancia.json";
+
+
+
 
 describe("Distancia entre cidades teste funcional", () => {
   it("deve retonar a distancia entre as cidades", async () => {
-    const { body, status } = await supertest(app).get("/distancia");
+    const { body, status } = await global.testRequest.get("/distancia");
     // pega o valor retornado pela API
 
     expect(status).toBe(200);
