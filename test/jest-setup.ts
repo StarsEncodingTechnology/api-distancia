@@ -17,4 +17,4 @@ beforeAll(async () => {
 });
 
 
-afterAll(async() => await server.close());
+afterAll(async() => await server.close()); 
