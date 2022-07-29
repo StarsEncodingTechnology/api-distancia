@@ -1,0 +1,19 @@
+{
+    "App": {
+      "port": 3000,
+      "database": {
+        "mongoUrl": "--"
+      },
+      "auth": {
+        "key": "some-key",
+        "tokenExpiresIn": "2000000000"
+      },
+      "resources": {
+        "googleDistancematrix": {
+          "apiUrl": "https://maps.googleapis.com/maps/api/distancematrix/",
+          "apiToken": "do-not-hard-code"
+        }
+      }
+    }
+  }
+  

@@ -1,13 +1,11 @@
 {
     "origem": {
         "cidade": "Franca",
-        "estado": "SP",
-        "codIbge": "3516200"
+        "uf": "SP"
     },
     "destino": {
         "cidade": "Cristais Paulista",
-        "estado": "SP",
-        "codIbge": "3513207"
+        "uf": "SP"
     },
     "distancia": 21
 }
