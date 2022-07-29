@@ -3,20 +3,10 @@ import { Request, Response } from "express";
 
 @Controller("distancia")
 export class DistanciaController {
-  @Get("")
+  @Post("")
   public pegaDistanciaUsuarioLogado(_: Request, res: Response): void {
-    res.send({
-      origem: {
-        cidade: "Franca",
-        estado: "SP",
-        codIbge: "3513207",
-      },
-      destino: {
-        cidade: "Franca",
-        estado: "SP",
-        codIbge: "3513207",
-      },
-      distancia: 21,
-    });
+    
+    const response = ""
+    res.status(200).send();
   }
 }
