@@ -1,10 +1,10 @@
 {
     "origem": {
-        "cidade": "Franca",
+        "cidade": "FRANCA",
         "uf": "SP"
     },
     "destino": {
-        "cidade": "Cristais Paulista",
+        "cidade": "CRISTAIS PAULISTA",
         "uf": "SP"
     },
     "distancia": 21

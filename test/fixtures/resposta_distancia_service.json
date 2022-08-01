@@ -1,17 +1,17 @@
 {
     "origem": {
-        "cidade": "FRANCA",
-        "uf": "SP", 
-        "uf_extenso" :"SÃO PAULO",
-        "codigo_uf": "35",
-        "codigo_ibge": "3516200"
+        "nome_municipio": "FRANCA",
+        "UF": "SP", 
+        "nome_UF" :"SÃO PAULO",
+        "codigo_UF": "35",
+        "codigo_municipio_completo": "3516200"
     },
     "destino": {
-        "cidade": "CRISTAIS PAULISTA",
-        "uf": "SP",
-        "uf_extenso" :"SÃO PAULO",
-        "codigo_uf": "35",
-        "codigo_ibge": "3513207"
+        "nome_municipio": "CRISTAIS PAULISTA",
+        "UF": "SP",
+        "nome_UF" :"SÃO PAULO",
+        "codigo_UF": "35",
+        "codigo_municipio_completo": "3513207"
     },
     "distancia": 21
 }
