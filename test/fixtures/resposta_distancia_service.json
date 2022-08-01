@@ -1,0 +1,17 @@
+{
+    "origem": {
+        "cidade": "FRANCA",
+        "uf": "SP", 
+        "uf_extenso" :"SÃO PAULO",
+        "codigo_uf": "35",
+        "codigo_ibge": "3516200"
+    },
+    "destino": {
+        "cidade": "CRISTAIS PAULISTA",
+        "uf": "SP",
+        "uf_extenso" :"SÃO PAULO",
+        "codigo_uf": "35",
+        "codigo_ibge": "3513207"
+    },
+    "distancia": 21
+}

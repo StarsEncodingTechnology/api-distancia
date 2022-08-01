@@ -1,5 +1,5 @@
 import { GoogleDistance } from "../googleDistance";
-import respostaEsperado from "@test/fixtures/resposta_distancia.json";
+import respostaEsperado from "@test/fixtures/resposta_distancia_client.json";
 import * as HTTPUtil from "@src/util/request";
 import respostaGoogleCorreta from "@test/fixtures/resposta_API_google_distance_matrix.json";
 import respostaGoogleSemDistancia from "@test/fixtures/respostaSemResultado_google_matrix.json";

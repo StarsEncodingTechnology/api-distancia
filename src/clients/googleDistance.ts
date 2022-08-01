@@ -72,7 +72,7 @@ export class apiNegadaError extends InternalError {
 }
 
 export class GoogleDistance {
-  constructor(protected request: HTTPUtil.Request) {}
+  constructor(protected request = new HTTPUtil.Request()) {}
 
   public async buscaDistancia(
     origem: Origem,
@@ -127,12 +127,12 @@ export class GoogleDistance {
 
     return {
       destino: {
-        cidade: destino.cidade,
-        uf: destino.uf,
+        cidade: destino.cidade.toUpperCase(),
+        uf: destino.uf.toUpperCase(),
       },
       origem: {
-        cidade: origem.cidade,
-        uf: origem.uf,
+        cidade: origem.cidade.toUpperCase(),
+        uf: origem.uf.toUpperCase(),
       },
       distancia: valorDistanciaNumber,
     };
