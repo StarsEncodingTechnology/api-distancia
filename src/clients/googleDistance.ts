@@ -1,6 +1,5 @@
 import { InternalError } from "@src/util/internal-error";
 import * as HTTPUtil from "@src/util/request";
-import { AxiosError } from "axios";
 import config, { IConfig } from "config";
 
 const googledistancematrix: IConfig = config.get(
@@ -38,10 +37,10 @@ export interface RowsElementsDistanciaMatrix {
 }
 
 export interface ResponseGoogleMatrix {
-  destination_adresses: Array<string>;
-  origin_adresses: Array<string>;
-  rows: RowsElementsDistanciaMatrix[];
-  status: string;
+  readonly destination_adresses: Array<string>;
+  readonly origin_adresses: Array<string>;
+  readonly rows: RowsElementsDistanciaMatrix[];
+  readonly status: string;
 }
 
 export class DistanciaVaziaError extends InternalError {
@@ -65,6 +64,13 @@ export class apiInesperadoError extends InternalError {
   }
 }
 
+export class apiNegadaError extends InternalError {
+  constructor(message: string) {
+    const internalError = "Erro a api retornou: "
+    super(`${internalError} ${message}`)
+  }
+}
+
 export class GoogleDistance {
   constructor(protected request: HTTPUtil.Request) {}
 
@@ -85,12 +91,14 @@ export class GoogleDistance {
 
       if (!!response.data.rows[0]?.elements[0]?.distance?.text) {
         return this.normalizaDados(response.data, destino, origem);
+      }else if(!!(response.data.status.includes("REQUEST_DENIED"))){
+        throw new apiNegadaError("REQUEST_DENIED");
+        // erro de api negada
       } else {
-        throw new DistanciaVaziaError("Distancia vazia ASD");
+        throw new DistanciaVaziaError("Distancia vazia");
         // lança um erro de distancia vazia
       }
     } catch (error) {
-      console.error( + " - ASD")
       if (error instanceof Error && HTTPUtil.Request.isRequestError(error)) {
         //  caso a api retorna um erro
         const err = HTTPUtil.Request.extractErrorData(error);

@@ -64,7 +64,7 @@ describe("GoogleDistance client", () => {
     await expect(
       googleDistance.buscaDistancia(origem, destino)
     ).rejects.toThrow(
-      'Erro generico do client:  {"message":"Erro a API não retornou uma distancia: : Distancia vazia ASD","code":500,"name":"DistanciaVaziaError"}'
+      'Erro generico do client:  {"message":"Erro a API não retornou uma distancia: : Distancia vazia","code":500,"name":"DistanciaVaziaError"}'
     );
     // chama  a api e ela deve retornar um erro
   });
@@ -88,7 +88,7 @@ describe("GoogleDistance client", () => {
     ).rejects.toThrow('Erro generico do client:  {"message":"Network error"}');
   });
 
-  it.only("deve retornar um a api retornar um error", async () => {
+  it("deve retornar um a api retornar um error", async () => {
     const origem = {
       cidade: "Franca",
       uf: "SP",
@@ -115,9 +115,10 @@ describe("GoogleDistance client", () => {
 
     const googleDistance = new GoogleDistance(mockedRequest);
 
-    await expect(googleDistance.buscaDistancia(origem, destino)).rejects.toThrow(
-      'ASD'
-    )
-
+    await expect(
+      googleDistance.buscaDistancia(origem, destino)
+    ).rejects.toThrow(
+      'Erro generico do client:  {"response":{"status":200,"data":{"destination_addresses":[],"error_message":"The provided API key is invalid. ","origin_addresses":[],"rows":[],"status":"REQUEST_DENIED"}}}'
+    );
   });
 });

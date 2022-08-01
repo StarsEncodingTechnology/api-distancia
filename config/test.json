@@ -1,1 +1,11 @@
-{}
+{
+    "App": {
+      "port": 3000,
+      "resources": {
+        "googleDistancematrix": {
+          "apiToken": "do-not-hard-code"
+        }
+      }
+    }
+  }
+  
