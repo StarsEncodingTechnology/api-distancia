@@ -6,7 +6,6 @@ export class DistanciaController {
   @Post("")
   public pegaDistanciaUsuarioLogado(_: Request, res: Response): void {
     
-    const response = ""
-    res.status(200).send();
+    res.status(200).send({});
   }
 }
