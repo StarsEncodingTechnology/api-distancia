@@ -1,5 +1,6 @@
 import { Destino, GoogleDistance } from "@src/clients/googleDistance";
 import { Cidade } from "@src/models/cidade";
+import { InternalError } from "@src/util/internal-error";
 
 export interface CidadeDadosFinais
   extends Omit<Cidade, "distancia" | "municipio"> {}
@@ -10,6 +11,12 @@ export interface DadosFinaisDistanciaDados {
   distancia: number;
 }
 
+export class CalculoDistanciaInternoErro extends InternalError {
+  constructor(message: string){
+    super(`Erro inesperado durante o processamento de calculoDistanciaInterno: ${message}`)
+  }
+}
+
 export class DistanciaDados {
   constructor(protected googleDistance = new GoogleDistance()) {}
 
@@ -17,27 +24,41 @@ export class DistanciaDados {
     cidadeOrigem: Cidade,
     cidadeDestino: Cidade
   ): Promise<DadosFinaisDistanciaDados> {
-    if (
-      !cidadeOrigem.distancia?.[cidadeDestino.codigo_municipio_completo]
-        .distancia
-    ) {
-      const responseGoogle = await this.googleDistance.buscaDistancia(
-        { cidade: cidadeOrigem.nome_municipio, uf: cidadeOrigem.UF },
-        { cidade: cidadeDestino.nome_municipio, uf: cidadeDestino.UF }
-      );
+    try {
+      if (
+        !cidadeOrigem.distancia?.[cidadeDestino.codigo_municipio_completo]
+          .distancia
+      ) {
+        const responseGoogle = await this.googleDistance.buscaDistancia(
+          { cidade: cidadeOrigem.nome_municipio, uf: cidadeOrigem.UF },
+          { cidade: cidadeDestino.nome_municipio, uf: cidadeDestino.UF }
+        );
 
-      if()
+        !cidadeOrigem.distancia ? (cidadeOrigem["distancia"] = {}) : "";
+
+        cidadeOrigem.distancia[`${cidadeDestino.codigo_municipio_completo}`] = {
+          cidade: responseGoogle.destino.cidade,
+          UF: responseGoogle.destino.uf,
+          distancia: responseGoogle.distancia,
+        };
+
+        
+
+        return this.normalizaDados(cidadeOrigem, cidadeDestino);
+      }
 
       return this.normalizaDados(cidadeOrigem, cidadeDestino);
-    }
 
-    return this.normalizaDados(cidadeOrigem, cidadeDestino);
+    } catch (error) {
+      throw new CalculoDistanciaInternoErro((error as Error).message);
+    }
   }
 
   private normalizaDados(
     origem: Cidade,
     destino: Cidade
   ): DadosFinaisDistanciaDados {
+    // faz a configuração dos dados de acordo com o retorno da API
     return {
       origem: {
         nome_municipio: origem.nome_municipio,
