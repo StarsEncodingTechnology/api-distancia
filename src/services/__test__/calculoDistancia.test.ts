@@ -6,13 +6,25 @@ import {
   DistanciaDados,
 } from "../calculoDistancia";
 
+import * as dataBase from "@src/database";
+
 import { Cidade } from "@src/models/cidade";
 
 jest.mock("@src/clients/googleDistance");
 
 describe("Teste em calculoDistancia Services", () => {
+  beforeAll(async () => {
+    await dataBase.connect()    
+  })
+  
+  afterAll(async () => {
+    await dataBase.close()
+  })
+
   const mockedGoogleDistanciaClient =
     new GoogleDistance() as jest.Mocked<GoogleDistance>;
+
+
 
   it("Deve retornar o valor correto COM dados no DB", async () => {
     mockedGoogleDistanciaClient.buscaDistancia.mockResolvedValue(
@@ -23,8 +35,8 @@ describe("Teste em calculoDistancia Services", () => {
       UF: "SP",
       nome_UF: "SÃO PAULO",
       municipio: "16200",
-      codigo_municipio_completo: "3516200",
-      nome_municipio: "FRANCA",
+      codigo_municipio_completo: "3516200TEST",
+      nome_municipio: "FRANCATEST",
       codigo_UF: "35",
       distancia: {
         "3513207": {
@@ -59,14 +71,9 @@ describe("Teste em calculoDistancia Services", () => {
       googleDistanciaRespostaNormalizada
     );
 
-    const cidadeOrigem: Cidade = {
-      UF: "SP",
-      nome_UF: "SÃO PAULO",
-      municipio: "16200",
-      codigo_municipio_completo: "3516200",
-      nome_municipio: "FRANCA",
-      codigo_UF: "35",
-    };
+    const cidadeOrigem: Cidade = (await Cidade.findOne({codigo_municipio_completo: "3516200TEST"})) as Cidade
+
+    delete cidadeOrigem.distancia
 
     const cidadeDestino: Cidade = {
       UF: "SP",
@@ -116,6 +123,6 @@ describe("Teste em calculoDistancia Services", () => {
     ).rejects.toThrow(CalculoDistanciaInternoErro);
   });
 
-  it("")
+
 
 });

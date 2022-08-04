@@ -12,8 +12,10 @@ export interface DadosFinaisDistanciaDados {
 }
 
 export class CalculoDistanciaInternoErro extends InternalError {
-  constructor(message: string){
-    super(`Erro inesperado durante o processamento de calculoDistanciaInterno: ${message}`)
+  constructor(message: string) {
+    super(
+      `Erro inesperado durante o processamento de calculoDistanciaInterno: ${message}`
+    );
   }
 }
 
@@ -26,13 +28,13 @@ export class DistanciaDados {
   ): Promise<DadosFinaisDistanciaDados> {
     try {
       if (
-        !cidadeOrigem.distancia?.[cidadeDestino.codigo_municipio_completo]
-          .distancia
+        !!(!cidadeOrigem.distancia?.[cidadeDestino.codigo_municipio_completo])
       ) {
         const responseGoogle = await this.googleDistance.buscaDistancia(
           { cidade: cidadeOrigem.nome_municipio, uf: cidadeOrigem.UF },
           { cidade: cidadeDestino.nome_municipio, uf: cidadeDestino.UF }
         );
+
 
         !cidadeOrigem.distancia ? (cidadeOrigem["distancia"] = {}) : "";
 
@@ -42,13 +44,12 @@ export class DistanciaDados {
           distancia: responseGoogle.distancia,
         };
 
-        
+        this.updateInfoBanco(cidadeOrigem);
 
         return this.normalizaDados(cidadeOrigem, cidadeDestino);
       }
 
       return this.normalizaDados(cidadeOrigem, cidadeDestino);
-
     } catch (error) {
       throw new CalculoDistanciaInternoErro((error as Error).message);
     }
@@ -77,5 +78,14 @@ export class DistanciaDados {
       distancia: origem.distancia?.[destino.codigo_municipio_completo]
         .distancia as number,
     };
+  }
+
+  private async updateInfoBanco(origem: Cidade): Promise<void> {
+    const findOne = {
+      codigo_municipio_completo: origem.codigo_municipio_completo,
+    };
+    const update = { distancia: origem.distancia };
+    
+    await Cidade.findOneAndUpdate(findOne, update);
   }
 }

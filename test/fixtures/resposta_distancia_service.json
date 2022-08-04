@@ -1,10 +1,10 @@
 {
     "origem": {
-        "nome_municipio": "FRANCA",
+        "nome_municipio": "FRANCATEST",
         "UF": "SP", 
         "nome_UF" :"SÃO PAULO",
         "codigo_UF": "35",
-        "codigo_municipio_completo": "3516200"
+        "codigo_municipio_completo": "3516200TEST"
     },
     "destino": {
         "nome_municipio": "CRISTAIS PAULISTA",
