@@ -1,12 +1,14 @@
 import "./util/module-alias";
 import { Server } from "@overnightjs/core";
 import bodyParser from "body-parser";
+
 import { DistanciaController } from "./controllers/distancia";
 import { Application } from "express";
+
 import * as database from "@src/database";
 
 export class SetupServer extends Server {
-  constructor(private port: Number = 3000) {
+  constructor(private port = 3000) {
     super();
   }
 
@@ -25,10 +27,6 @@ export class SetupServer extends Server {
     this.addControllers([distanciaController]);
   }
 
-  public getApp(): Application {
-    return this.app;
-  }
-
   private async dataBaseSetup(): Promise<void> {
     await database.connect();
   }
@@ -37,7 +35,14 @@ export class SetupServer extends Server {
     database.close();
   }
 
+  
+  public getApp(): Application {
+    return this.app;
+  }
+
+
   public start(): void {
+    console.log("UAI")
     this.app.listen(this.port, () => {
       console.info("Server rodando em: " + this.port)
     })

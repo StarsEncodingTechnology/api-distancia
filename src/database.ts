@@ -8,9 +8,9 @@ const dbConfig: IConfig = config.get("App.database");
 export const connect = async (): Promise<void> => {
   const urlDB: string = dbConfig.get("mongoUrl");
   const linkDB: string = urlDB
-    .replace("LOGIN_DB", process.env["LOGIN_DB"])
-    .replace("SENHA_DB", process.env["SENHA_DB"])
-    .replace("CONFIG_DB", process.env["CONFIG_DB"]);
+    .replace("LOGIN_DB", (process.env["LOGIN_DB"] as string))
+    .replace("SENHA_DB", (process.env["SENHA_DB"] as string))
+    .replace("CONFIG_DB", (process.env["CONFIG_DB"] as string));
 
   await mongooseConnect(linkDB);
   console.log("Conectado")

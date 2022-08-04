@@ -34,7 +34,7 @@ describe("Distancia entre cidades teste funcional", () => {
     expect(status).toBe(400);
     expect(body).toEqual({
       code: 400,
-      message: "ibge_origem or ibge_destino missing data",
+      message: "ibge_origem or ibge_destino Not Found",
     });
   })
 });

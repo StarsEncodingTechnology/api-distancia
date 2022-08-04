@@ -5,7 +5,7 @@ declare global {
         SENHA_DB: string;
         CONFIG_DB: string;
         NODE_ENV: 'development' | 'production';
-        PORT: string;
+        APITOKEN: string;
       }
     }
   }

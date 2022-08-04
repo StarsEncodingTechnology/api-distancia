@@ -14,17 +14,15 @@ jest.mock("@src/clients/googleDistance");
 
 describe("Teste em calculoDistancia Services", () => {
   beforeAll(async () => {
-    await dataBase.connect()    
-  })
-  
+    await dataBase.connect();
+  });
+
   afterAll(async () => {
-    await dataBase.close()
-  })
+    await dataBase.close();
+  });
 
   const mockedGoogleDistanciaClient =
     new GoogleDistance() as jest.Mocked<GoogleDistance>;
-
-
 
   it("Deve retornar o valor correto COM dados no DB", async () => {
     mockedGoogleDistanciaClient.buscaDistancia.mockResolvedValue(
@@ -71,9 +69,11 @@ describe("Teste em calculoDistancia Services", () => {
       googleDistanciaRespostaNormalizada
     );
 
-    const cidadeOrigem: Cidade = (await Cidade.findOne({codigo_municipio_completo: "3516200TEST"})) as Cidade
+    const cidadeOrigem: Cidade = (await Cidade.findOne({
+      codigo_municipio_completo: "3516200TEST",
+    })) as Cidade;
 
-    delete cidadeOrigem.distancia
+    delete cidadeOrigem.distancia;
 
     const cidadeDestino: Cidade = {
       UF: "SP",
@@ -122,7 +122,4 @@ describe("Teste em calculoDistancia Services", () => {
       distanciaDados.processandoDadosCidades(cidadeOrigem, cidadeDestino)
     ).rejects.toThrow(CalculoDistanciaInternoErro);
   });
-
-
-
 });

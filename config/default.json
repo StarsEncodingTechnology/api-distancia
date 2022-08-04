@@ -1,5 +1,6 @@
 {
   "App": {
+    "port": 3000,
     "database": {
       "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/?retryWrites=true&w=majority"
     },
@@ -9,8 +10,7 @@
     },
     "resources": {
       "googleDistancematrix": {
-        "apiUrl": "https://maps.googleapis.com/maps/api/distancematrix/",
-        "apiToken": "do-not-hard-code"
+        "apiUrl": "https://maps.googleapis.com/maps/api/distancematrix/"
       }
     }
   }

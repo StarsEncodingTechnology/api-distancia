@@ -1,0 +1,11 @@
+{
+    "origem": {
+        "cidade": "FRANCA",
+        "uf": "SP"
+    },
+    "destino": {
+        "cidade": "CRISTAIS PAULISTA",
+        "uf": "SP"
+    },
+    "distancia": "ZERO_RESULTS"
+}

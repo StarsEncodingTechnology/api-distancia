@@ -43,7 +43,7 @@ describe("GoogleDistance client", () => {
     //
   });
 
-  it("deve retornar um erro se a GoogleMatrix retornar sem resultados", async () => {
+  it("deve retornar sem distancia", async () => {
     const origem = {
       cidade: "Franca",
       uf: "SP",

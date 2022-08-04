@@ -66,8 +66,8 @@ export class apiInesperadoError extends InternalError {
 
 export class apiNegadaError extends InternalError {
   constructor(message: string) {
-    const internalError = "Erro a api retornou: "
-    super(`${internalError} ${message}`)
+    const internalError = "Erro a api retornou: ";
+    super(`${internalError} ${message}`);
   }
 }
 
@@ -78,20 +78,28 @@ export class GoogleDistance {
     origem: Origem,
     destino: Destino
   ): Promise<DadosCorretosGoogleMatrix> {
-    const variavelDestino = destino.cidade + "-" + destino.uf;
-    const variavelOrigem = origem.cidade + "-" + origem.uf;
+    const variavelDestino = (destino.cidade + "-" + destino.uf).replace(
+      " ",
+      "+"
+    );
+    const variavelOrigem = (origem.cidade + "-" + origem.uf).replace(" ", "+");
     try {
       const response = await this.request.get<ResponseGoogleMatrix>(`
         ${googledistancematrix.get(
           "apiUrl"
-        )}/json?origens=${variavelDestino}&destinations=${variavelOrigem}&key=${googledistancematrix.get(
-        "apiToken"
-      )}  
+        )}json?origens=${variavelDestino}&destinations=${variavelOrigem}&key=${
+        process.env["APITOKEN"]
+      }  
     `);
 
+
+      console.log(response)
+
       if (!!response.data.rows[0]?.elements[0]?.distance?.text) {
-        return this.normalizaDados(response.data, destino, origem);
-      }else if(!!(response.data.status.includes("REQUEST_DENIED"))){
+        // caso exista no valor
+
+        return this.normalizaComDados(response.data, destino, origem);
+      } else if (!!response.data.status.includes("REQUEST_DENIED")) {
         throw new apiNegadaError("REQUEST_DENIED");
         // erro de api negada
       } else {
@@ -113,7 +121,7 @@ export class GoogleDistance {
     }
   }
 
-  private normalizaDados(
+  private normalizaComDados(
     distancia: ResponseGoogleMatrix,
     destino: Destino,
     origem: Origem
