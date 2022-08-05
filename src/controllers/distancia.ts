@@ -44,9 +44,11 @@ export class DistanciaController {
           });
         }
       } catch (error) {
-        if ((error as Error) instanceof mongoose.Error.ValidationError) {
-          res.status(422).send({ error: (error as Error).message });
+        const err = error as Error
+        if ((err) instanceof mongoose.Error.ValidationError) {
+          res.status(422).send({ error: (err).message });
         } else {
+          console.log(err.message)
           res.status(500).send({ error: "Internal Server Error" });
         }
       }

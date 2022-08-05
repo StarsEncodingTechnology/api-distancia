@@ -43,6 +43,11 @@ export interface ResponseGoogleMatrix {
   readonly status: string;
 }
 
+export interface TotalResponseGoogleMatrix {
+  data: ResponseGoogleMatrix;
+  status: string;
+}
+
 export class DistanciaVaziaError extends InternalError {
   constructor(error: string) {
     const internalMessage: string = "Erro a API não retornou uma distancia: ";
@@ -78,22 +83,28 @@ export class GoogleDistance {
     origem: Origem,
     destino: Destino
   ): Promise<DadosCorretosGoogleMatrix> {
-    const variavelDestino = (destino.cidade + "-" + destino.uf).replace(
+    const variavelDestino = (destino.cidade + "-" + destino.uf).replaceAll(
       " ",
       "+"
     );
-    const variavelOrigem = (origem.cidade + "-" + origem.uf).replace(" ", "+");
+
+    const variavelOrigem = (origem.cidade + "-" + origem.uf).replaceAll(
+      " ",
+      "+"
+    );
+
+    const url: string = `${googledistancematrix.get(
+      "apiUrl"
+    )}json?origins=${variavelDestino}&destinations=${variavelOrigem}&key=${
+      process.env["APITOKEN"]
+    }`
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
     try {
-      const response = await this.request.get<ResponseGoogleMatrix>(`
-        ${googledistancematrix.get(
-          "apiUrl"
-        )}json?origens=${variavelDestino}&destinations=${variavelOrigem}&key=${
-        process.env["APITOKEN"]
-      }  
-    `);
-
-
-      console.log(response)
+      const response = await this.request.get<any>(`${url}`, {
+        headers: {},
+      });
 
       if (!!response.data.rows[0]?.elements[0]?.distance?.text) {
         // caso exista no valor
@@ -107,6 +118,7 @@ export class GoogleDistance {
         // lança um erro de distancia vazia
       }
     } catch (error) {
+      console.log((error as Error).message);
       if (error instanceof Error && HTTPUtil.Request.isRequestError(error)) {
         //  caso a api retorna um erro
         const err = HTTPUtil.Request.extractErrorData(error);
