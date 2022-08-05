@@ -2,6 +2,7 @@ import { InternalError } from "@src/util/internal-error";
 import * as HTTPUtil from "@src/util/request";
 import config, { IConfig } from "config";
 
+
 const googledistancematrix: IConfig = config.get(
   "App.resources.googleDistancematrix"
 );
@@ -93,13 +94,13 @@ export class GoogleDistance {
       "+"
     );
 
-    const url: string = `${googledistancematrix.get(
-      "apiUrl"
-    )}json?origins=${variavelDestino}&destinations=${variavelOrigem}&key=${
-      process.env["APITOKEN"]
-    }`
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+    const url: string = this.retiraCaracteresEspeciais(
+      `${googledistancematrix.get(
+        "apiUrl"
+      )}json?origins=${variavelDestino}&destinations=${variavelOrigem}&key=${
+        process.env["APITOKEN"]
+      }`
+    );
 
     try {
       const response = await this.request.get<any>(`${url}`, {
@@ -156,5 +157,9 @@ export class GoogleDistance {
       },
       distancia: valorDistanciaNumber,
     };
+  }
+
+  private retiraCaracteresEspeciais(text: string): string {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 }

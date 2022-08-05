@@ -6,6 +6,7 @@ import { DistanciaController } from "./controllers/distancia";
 import { Application } from "express";
 
 import * as database from "@src/database";
+import { UsersController } from "./controllers/users";
 
 export class SetupServer extends Server {
   constructor(private port = 3000) {
@@ -24,7 +25,8 @@ export class SetupServer extends Server {
 
   private setupControllers(): void {
     const distanciaController = new DistanciaController();
-    this.addControllers([distanciaController]);
+    const usersController = new UsersController();
+    this.addControllers([distanciaController, usersController]);
   }
 
   private async dataBaseSetup(): Promise<void> {

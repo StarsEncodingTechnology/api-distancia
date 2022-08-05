@@ -1,6 +1,7 @@
 import respostaCorretaService from "@test/fixtures/resposta_distancia_service.json";
 import { GoogleDistance } from "@src/clients/googleDistance";
 import googleDistanciaRespostaNormalizada from "@test/fixtures/resposta_distancia_client.json";
+
 import {
   CalculoDistanciaInternoErro,
   DistanciaDados,
