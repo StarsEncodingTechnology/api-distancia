@@ -20,4 +20,23 @@ describe("Testes funcionais do Users", () => {
 
     });
   });
+
+  it("deve retorno um erro 400 quando faltar alguma informação" , async() => {
+    const newUser = {
+        name: "John doe",
+        password: "1234",
+      };
+
+      const response = await global.testRequest.post('/users').send(newUser)
+
+      expect(response.status).toBe(400);
+
+      expect(response.body).toEqual({
+        code: 400,
+        error: "User validation failed: email: Path `email` is required."
+      })
+
+    
+  })
+
 });

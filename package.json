@@ -11,8 +11,8 @@
     "start": "yarn build&& node dist/src/index.js",
     "start:dev": "ts-node-dev ./src/index.ts",
     "lint": "eslint ./src ./test --ext .ts",
-    "test:unit": "color 3&& jest --runInBand ",
-    "test:functional": "color 3&& jest --projects ./test --runInBand",
+    "test:unit": "cls&& jest --runInBand ",
+    "test:functional": "cls&& jest --projects ./test --runInBand",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

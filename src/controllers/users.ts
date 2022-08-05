@@ -7,22 +7,26 @@ import { Request, Response } from "express";
 export class UsersController {
   @Post("")
   public async create(req: Request, res: Response): Promise<void> {
-    const dataAtual = new DataAtual();
+    try {
+      const dataAtual = new DataAtual();
 
-    const consumo = {
-      consumo: {
-        [dataAtual.mesAtual() + dataAtual.anoAtual()]: {
-          [dataAtual.diaAtual()]: 0,
+      const consumo = {
+        consumo: {
+          [dataAtual.mesAtual() + dataAtual.anoAtual()]: {
+            [dataAtual.diaAtual()]: 0,
+          },
         },
-      },
-    };
+      };
 
-    const userInfo: User = { ...req.body, ...consumo };
+      const userInfo: User = { ...req.body, ...consumo };
 
-    const user = new User(userInfo);
-    const newUser = await user.save();
+      const user = new User(userInfo);
+      const newUser = await user.save();
 
-    res.status(201).send(newUser);
+      res.status(201).send(newUser);
+    } catch (error) {
+      res.status(400).send({ code: 400, error: (error as Error).message });
+    }
   }
 }
 /*
