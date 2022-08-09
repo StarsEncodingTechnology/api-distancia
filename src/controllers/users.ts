@@ -15,7 +15,7 @@ export class UsersController {
           [dataAtual.mesAtual() + dataAtual.anoAtual()]: {
             [dataAtual.diaAtual()]: 0,
           },
-        },
+        }
       };
 
       const userInfo: User = { ...req.body, ...consumo };
