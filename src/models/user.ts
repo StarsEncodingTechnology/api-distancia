@@ -1,43 +1,79 @@
 import mongoose, { Document } from "mongoose";
-
-
+import bcrypt from "bcrypt";
 
 export interface ConsumoDia {
-    [key: string]: number;
+  [key: string]: number;
 }
 
 export interface Consumo {
-    [key: string]: ConsumoDia
-    // a key é o mes+ano
+  [key: string]: ConsumoDia;
+  // a key é o mes+ano
 }
 
 export interface User {
-    _id?: string;
-    name: string;
-    email: string;
-    password: string;
-    consumo: Consumo
+  _id?: string;
+  name: string;
+  email: string;
+  password: string;
+  consumo: Consumo;
 }
 
-
-interface UserModel extends Omit<User, "_id">, Document {
+export enum CUSTOM_VALIDATION {
+  DUPLICATED = "DUPLICATED",
 }
 
-const schema = new mongoose.Schema({
-    name: {type: String, required: true},
-    email: {type: String, required: true},
-    password: {type: String, required: true},
-    consumo: {type: Object, required: true}
-},
-{
+interface UserModel extends Omit<User, "_id">, Document {}
+
+const schema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    consumo: { type: Object, required: true },
+  },
+  {
     toJSON: {
-        transform: (_, ret): void => {
-            ret.id = ret._id,
-            delete ret._id,
-            delete ret.__v
-        }
-    }
-})
+      transform: (_, ret): void => {
+        (ret.id = ret._id), delete ret._id, delete ret.__v;
+      },
+    },
+  }
+);
 
+schema.path("email").validate(
+  async (email: string) => {
+    const emailCount = await mongoose.models.User.countDocuments({ email });
+    return !emailCount;
+  },
+  "already exists in the database.",
+  CUSTOM_VALIDATION.DUPLICATED
+);
 
-export const User = mongoose.model<UserModel>("User", schema)
+export async function hashPassword(
+  password: string,
+  salt = 10
+): Promise<string> {
+  return await bcrypt.hash(password, salt);
+}
+
+export async function comparePassword(
+  password: string,
+  hashPassword: string
+): Promise<boolean> {
+  return await bcrypt.compare(password, hashPassword);
+}
+
+schema.pre<UserModel>("save", async function (): Promise<void> {
+  if (!this.password || !this.isModified("password")) {
+    return;
+  }
+
+  try {
+    const hashedPassword = await hashPassword(this.password);
+    this.password = hashedPassword;
+  } catch (err) {
+    console.error(`Error hashing the password for the user ${this.name}`);
+  }
+});
+ 
+export const User = mongoose.model<UserModel>("User", schema);
