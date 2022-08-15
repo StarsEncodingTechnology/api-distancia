@@ -1,4 +1,5 @@
-import { User, comparePassword } from "@src/models/user";
+import { User } from "@src/models/user";
+import AuthService from "@src/services/auth";
 
 describe("Testes funcionais do Users", () => {
   describe("Quando criar um novo usuario", () => {
@@ -15,7 +16,7 @@ describe("Testes funcionais do Users", () => {
 
       expect(response.status).toBe(201);
       await expect(
-        comparePassword(newUser.password, response.body.password)
+        AuthService.comparePassword(newUser.password, response.body.password)
       ).resolves.toBeTruthy();
       expect(response.body).toEqual(
         expect.objectContaining({
@@ -57,6 +58,38 @@ describe("Testes funcionais do Users", () => {
     expect(response.body).toEqual({
       code: 409,
       error: "User validation failed: email: already exists in the database.",
+    });
+  });
+
+  describe("quando autenticar o usuario", () => {
+    it("deve gerar o token para o usuario valido", async () => {
+      const newUser = {
+        name: "John doe",
+        email: "testeTESTE@testeTESTE.com",
+        password: "1234",
+      };
+
+      const response = await global.testRequest
+        .post("/users/authenticate")
+        .send({
+          email: newUser.email,
+          password: newUser.password,
+        });
+
+      expect(response.body).toEqual(
+        expect.objectContaining({ token: expect.any(String) })
+      );
+    });
+
+    it("deve retornar não autorizado se o usuario não for encontrado", async () => {
+      const response = await global.testRequest
+        .post("/users/authenticate")
+        .send({
+          email: "qualquerEmail@qualquer.com.qualquer",
+          password: "1234",
+        });
+
+      expect(response.status).toBe(401);
     });
   });
 });

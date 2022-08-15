@@ -6,6 +6,7 @@ declare global {
         CONFIG_DB: string;
         NODE_ENV: 'development' | 'production';
         APITOKEN: string;
+        GENTOKEN: string;
       }
     }
   }

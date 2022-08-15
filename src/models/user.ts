@@ -1,5 +1,6 @@
+import AuthService from "@src/services/auth";
 import mongoose, { Document } from "mongoose";
-import bcrypt from "bcrypt";
+
 
 export interface ConsumoDia {
   [key: string]: number;
@@ -49,19 +50,6 @@ schema.path("email").validate(
   CUSTOM_VALIDATION.DUPLICATED
 );
 
-export async function hashPassword(
-  password: string,
-  salt = 10
-): Promise<string> {
-  return await bcrypt.hash(password, salt);
-}
-
-export async function comparePassword(
-  password: string,
-  hashPassword: string
-): Promise<boolean> {
-  return await bcrypt.compare(password, hashPassword);
-}
 
 schema.pre<UserModel>("save", async function (): Promise<void> {
   if (!this.password || !this.isModified("password")) {
@@ -69,7 +57,7 @@ schema.pre<UserModel>("save", async function (): Promise<void> {
   }
 
   try {
-    const hashedPassword = await hashPassword(this.password);
+    const hashedPassword = await AuthService.hashPassword(this.password);
     this.password = hashedPassword;
   } catch (err) {
     console.error(`Error hashing the password for the user ${this.name}`);

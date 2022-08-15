@@ -1,5 +1,6 @@
 import { Controller, Post } from "@overnightjs/core";
 import { Consumo, ConsumoDia, User } from "@src/models/user";
+import AuthService from "@src/services/auth";
 import { DataAtual } from "@src/util/dataAtual";
 import { Request, Response } from "express";
 import { BaseController } from ".";
@@ -16,7 +17,7 @@ export class UsersController extends BaseController {
           [dataAtual.mesAtual() + dataAtual.anoAtual()]: {
             [dataAtual.diaAtual()]: 0,
           },
-        }
+        },
       };
 
       const userInfo: User = { ...req.body, ...consumo };
@@ -29,8 +30,27 @@ export class UsersController extends BaseController {
       this.sendCreateUpdateErrorResponse(res, error);
     }
   }
+
+  @Post("authenticate")
+  public async authenticate(req: Request, res: Response): Promise<Response | undefined> {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+    return res.status(401).send({
+      code: 401,
+      error: 'User not found!'
+    })
+    }
+
+    if (!(await AuthService.comparePassword(password, user.password))) {
+      return;
+    }
+
+    const token = AuthService.generateToken(user.toJSON());
+    return res.status(200).send({ token: token });
+  }
 }
- 
+
 /*
 const user: User = {
     name: "pedro",
