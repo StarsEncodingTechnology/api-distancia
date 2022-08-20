@@ -32,14 +32,17 @@ export class UsersController extends BaseController {
   }
 
   @Post("authenticate")
-  public async authenticate(req: Request, res: Response): Promise<Response | undefined> {
+  public async authenticate(
+    req: Request,
+    res: Response
+  ): Promise<Response | undefined> {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {
-    return res.status(401).send({
-      code: 401,
-      error: 'User not found!'
-    })
+      return res.status(401).send({
+        code: 401,
+        error: "User not found!",
+      });
     }
 
     if (!(await AuthService.comparePassword(password, user.password))) {
