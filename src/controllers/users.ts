@@ -1,5 +1,5 @@
 import { Controller, Post } from "@overnightjs/core";
-import { Consumo, ConsumoDia, User } from "@src/models/user";
+import {  User } from "@src/models/user";
 import AuthService from "@src/services/auth";
 import { DataAtual } from "@src/util/dataAtual";
 import { Request, Response } from "express";

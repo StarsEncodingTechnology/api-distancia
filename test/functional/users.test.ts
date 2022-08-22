@@ -3,7 +3,7 @@ import AuthService from "@src/services/auth";
 
 describe("Testes funcionais do Users", () => {
   describe("Quando criar um novo usuario", () => {
-    it("deve criar um novo usuario com sucesso", async () => {
+    it("deve criar um novo usuario com sucesso com senha criptografada", async () => {
       const newUser = {
         name: "John doe",
         email: "testeTESTE@testeTESTE.com",
