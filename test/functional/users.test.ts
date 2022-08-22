@@ -91,5 +91,19 @@ describe("Testes funcionais do Users", () => {
 
       expect(response.status).toBe(401);
     });
+
+    it("deve retornar não autorizado se a senha do usuario não bater", async () => {
+      const newUser = {
+        name: "John doe",
+        email: "testeTESTE@testeTESTE.com",
+        password: "1234",
+      };
+
+      const response = await global.testRequest
+        .post("/users/authenticate")
+        .send({ email: newUser.email, password: " UMA SENHA DIFERENTE" });
+
+        expect(response.status).toBe(401);
+    });
   });
 });

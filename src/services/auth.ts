@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import config  from "config";
 
 export default class AuthService {
+
   public static async hashPassword(
     password: string,
     salt = 10
@@ -22,4 +23,5 @@ export default class AuthService {
       expiresIn: config.get("App.auth.tokenExpiresIn"),
     });
   }
+
 }

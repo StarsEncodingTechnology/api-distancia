@@ -46,7 +46,10 @@ export class UsersController extends BaseController {
     }
 
     if (!(await AuthService.comparePassword(password, user.password))) {
-      return;
+      return res.status(401).send({
+        code: 401,
+        error: 'Password does not match!'
+      })
     }
 
     const token = AuthService.generateToken(user.toJSON());
