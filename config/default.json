@@ -5,7 +5,7 @@
       "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/?retryWrites=true&w=majority"
     },
     "auth": {
-      "key": "some-key",
+      "key": "IJEIJGNBLF3J1038YG7HL12RNF0129F",
       "tokenExpiresIn": "2000"
     },
     "resources": {

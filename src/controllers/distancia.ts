@@ -1,10 +1,12 @@
-import { Controller, Get, Post } from "@overnightjs/core";
+import { ClassMiddleware, Controller, Get, Post } from "@overnightjs/core";
+import { authMiddleware } from "@src/middlewares/auth";
 import { Cidade } from "@src/models/cidade";
 import { DistanciaDados } from "@src/services/calculoDistancia";
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 
 @Controller("distancia")
+@ClassMiddleware(authMiddleware)
 export class DistanciaController {
   @Post("")
   public async pegaDistanciaUsuarioLogado(

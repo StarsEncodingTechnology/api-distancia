@@ -9,6 +9,7 @@ export interface ConsumoDia {
 export interface Consumo {
   [key: string]: ConsumoDia;
   // a key é o mes+ano
+  // 012022
 }
 
 export interface User {
