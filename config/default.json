@@ -6,7 +6,7 @@
     },
     "auth": {
       "key": "IJEIJGNBLF3J1038YG7HL12RNF0129F",
-      "tokenExpiresIn": "2000"
+      "tokenExpiresIn": "100000000"
     },
     "resources": {
       "googleDistancematrix": {
