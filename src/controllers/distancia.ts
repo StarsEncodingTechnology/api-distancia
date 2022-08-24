@@ -2,6 +2,7 @@ import { ClassMiddleware, Controller, Get, Post } from "@overnightjs/core";
 import { authMiddleware } from "@src/middlewares/auth";
 import { Cidade } from "@src/models/cidade";
 import { DistanciaDados } from "@src/services/calculoDistancia";
+import { AtualizaConsumo } from "@src/services/consumo";
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 
@@ -15,6 +16,7 @@ export class DistanciaController {
   ): Promise<void> {
     const ibgeOrigem = req.body.ibge_origem;
     const ibgeDestino = req.body.ibge_destino;
+ 
 
     if (!ibgeOrigem || !ibgeDestino) {
       res.status(400).send({
@@ -45,12 +47,13 @@ export class DistanciaController {
             message: "ibge_origem or ibge_destino Invalid",
           });
         }
+        AtualizaConsumo.adicionaUmConsumo(req)
       } catch (error) {
-        const err = error as Error
-        if ((err) instanceof mongoose.Error.ValidationError) {
-          res.status(422).send({ error: (err).message });
+        const err = error as Error;
+        if (err instanceof mongoose.Error.ValidationError) {
+          res.status(422).send({ error: err.message });
         } else {
-          console.log(err.message)
+          console.log(err.message);
           res.status(500).send({ error: "Internal Server Error" });
         }
       }

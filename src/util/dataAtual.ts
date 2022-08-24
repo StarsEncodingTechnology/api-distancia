@@ -1,9 +1,10 @@
 export class DataAtual {
-  constructor(protected data = new Date()) {}
+  constructor(protected data = new Date()) {
+  }
 
   public diaAtual() {
     return this.casoNescessarioAdicionaZeroAesquerda(
-      this.data.getDay().toString()
+      this.data.getDate().toString()
     );
   }
   public mesAtual() {
@@ -17,6 +18,7 @@ export class DataAtual {
   }
 
   private casoNescessarioAdicionaZeroAesquerda(stringProcessada: string) {
+    console.log(stringProcessada + " AS")
     return stringProcessada.length == 1
       ? "0" + stringProcessada
       : stringProcessada;

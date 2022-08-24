@@ -55,6 +55,7 @@ export class UsersController extends BaseController {
     const token = AuthService.generateToken(user.toJSON());
     return res.status(200).send({...user.toJSON(),...{ token }});
   }
+
 }
 
 /*
