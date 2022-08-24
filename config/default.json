@@ -5,8 +5,8 @@
       "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/?retryWrites=true&w=majority"
     },
     "auth": {
-      "key": "IJEIJGNBLF3J1038YG7HL12RNF0129F",
-      "tokenExpiresIn": "100000000"
+      "key": "PEDROELIASIJEIJGNBLF3J1038YG7HL12RNF0129F",
+      "tokenExpiresIn": "24h"
     },
     "resources": {
       "googleDistancematrix": {
