@@ -35,7 +35,7 @@ describe("Teste em calculoDistancia Services", () => {
       nome_UF: "SÃO PAULO",
       municipio: "16200",
       codigo_municipio_completo: "3516200TEST",
-      nome_municipio: "FRANCATEST",
+      nome_municipio: "FRANCA",
       codigo_UF: "35",
       distancia: {
         "3513207": {
@@ -70,11 +70,12 @@ describe("Teste em calculoDistancia Services", () => {
       googleDistanciaRespostaNormalizada
     );
 
-    const cidadeOrigem: Cidade = (await Cidade.findOne({
+    let cidadeOrigem: Cidade = (await Cidade.findOne({
       codigo_municipio_completo: "3516200TEST",
     })) as Cidade;
 
-    delete cidadeOrigem.distancia;
+    cidadeOrigem.distancia = undefined;
+    // delete não funcionou
 
     const cidadeDestino: Cidade = {
       UF: "SP",

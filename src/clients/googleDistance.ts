@@ -97,7 +97,7 @@ export class GoogleDistance {
     const url: string = this.retiraCaracteresEspeciais(
       `${googledistancematrix.get(
         "apiUrl"
-      )}json?origins=${variavelDestino}&destinations=${variavelOrigem}&key=${
+      )}json?origins=${variavelOrigem}&destinations=${variavelDestino}&key=${
         process.env["APITOKEN"]
       }`
     );
@@ -143,7 +143,7 @@ export class GoogleDistance {
       (element) => !!element.distance.text
     )?.distance.text;
     const valorDistanciaNumber: number = Number.parseFloat(
-      valorDistance?.split(" ")[0] as string
+      (valorDistance?.replace(",",""))?.split(" ")[0] as string
     );
 
     return {

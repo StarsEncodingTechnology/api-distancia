@@ -4,7 +4,6 @@ export class InternalError extends Error {
     protected code: number = 500,
     protected description?: string
   ) {
-    console.log(message)
     super(message);
     this.name = this.constructor.name;
     Error.captureStackTrace(this, this.constructor);

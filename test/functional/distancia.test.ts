@@ -43,7 +43,7 @@ describe("Distancia entre cidades teste funcional", () => {
       .post("/distancia")
       .set({ "x-acess-token": token })
       .send({
-        ibge_origem: "3516200TEST",
+        ibge_origem: "3516200TESTE",
         ibge_destino: "21349",
       });
 

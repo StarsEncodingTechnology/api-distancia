@@ -1,4 +1,4 @@
-import { Destino, GoogleDistance } from "@src/clients/googleDistance";
+import { GoogleDistance } from "@src/clients/googleDistance";
 import { Cidade } from "@src/models/cidade";
 import { InternalError } from "@src/util/internal-error";
 
