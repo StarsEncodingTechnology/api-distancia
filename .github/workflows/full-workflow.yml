@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run: git fetch --prune --unshallow
+      # - run: git fetch --prune --unshallow
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -20,12 +20,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        # run: yarn --frozen-lockfile
 
         env:
           STEP_VARIABLE: APITOKEN
 
-        run: echo "This is the $STEP_VARIABLE environment variable"
+        run: |
+          echo "Hello World"
 
       - name: Run all tests
-        run: yarn test:unit
+        # run: yarn test:unit
