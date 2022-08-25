@@ -22,5 +22,11 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
+      env:
+          STEP_VARIABLE: APITOKEN
+
+      run:
+        echo "This is the $STEP_VARIABLE environment variable"
+
       - name: Run all tests
         run: yarn test:unit
