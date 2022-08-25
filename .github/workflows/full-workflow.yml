@@ -14,9 +14,11 @@ jobs:
       - name: Run Commands with various variables
         if: ${{ env.WORKFLOW_VARIABLE == 'WORKFLOW' }} # Example using context env
         env:
-          STEP_VARIABLE: STE12P
+          STEP_VARIABLE: STEP
+          super_secret: ${{secrets.SUPERSECRET}}
         run: |
           echo "Hello World"
           echo "This is the $WORKFLOW_VARIABLE environment variable"
           echo "This is the $JOB_VARIABLE environment variable"
           echo "This is the $STEP_VARIABLE environment variable"
+          echo "This is the $super_secret environment variable"
