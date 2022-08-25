@@ -6,7 +6,8 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     env:
-      super_secret: ${{ secrets.APITOKEN }}
+      super_secret: ${{ secrets.SUPERSECRET  }}
+      super_secret2: ${{ secrets.SUPERSECRET  }}
     steps:
       - name: Run Commands with a Secret
         if: ${{ env.super_secret != '' }}
