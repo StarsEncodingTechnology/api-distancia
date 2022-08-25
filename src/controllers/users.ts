@@ -9,6 +9,7 @@ import { BaseController } from ".";
 export class UsersController extends BaseController {
   @Post("")
   public async create(req: Request, res: Response): Promise<void> {
+    // faz a criação de novo perfil
     try {
       const dataAtual = new DataAtual();
 
@@ -36,6 +37,7 @@ export class UsersController extends BaseController {
     req: Request,
     res: Response
   ): Promise<Response | undefined> {
+    // cria o token
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {

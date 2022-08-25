@@ -6,6 +6,7 @@ dotenv.config();
 const dbConfig: IConfig = config.get("App.database");
 
 export const connect = async (): Promise<void> => {
+  // conectado o server com o DB
   const urlDB: string = dbConfig.get("mongoUrl");
   const linkDB: string = urlDB
     .replace("LOGIN_DB", (process.env["LOGIN_DB"] as string))

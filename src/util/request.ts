@@ -1,11 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 //https://www.youtube.com/watch?v=jz0nuQKD_4A&list=PLz_YTBuxtxt6_Zf1h-qzNsvVt46H8ziKh&index=13
-/* eslint-disable @typescript-eslint/no-empty-interface */
+
 export interface RequestConfig extends AxiosRequestConfig {}
 // extende e mascara o axiosRequestConfig
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Response<T = any> extends AxiosResponse<T> {}
-// extende e marcara o axiosRespose<T>
+// extende e marcara o axiosResponse<T>
 // T sendo generico
 
 export class Request {

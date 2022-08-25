@@ -18,7 +18,6 @@ export class DataAtual {
   }
 
   private casoNescessarioAdicionaZeroAesquerda(stringProcessada: string) {
-    console.log(stringProcessada + " AS")
     return stringProcessada.length == 1
       ? "0" + stringProcessada
       : stringProcessada;

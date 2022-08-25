@@ -1,9 +1,9 @@
 import AuthService from "@src/services/auth";
 import mongoose, { Document } from "mongoose";
 
-
 export interface ConsumoDia {
   [key: string]: number;
+  //01 a 31
 }
 
 export interface Consumo {
@@ -51,7 +51,6 @@ schema.path("email").validate(
   CUSTOM_VALIDATION.DUPLICATED
 );
 
-
 schema.pre<UserModel>("save", async function (): Promise<void> {
   if (!this.password || !this.isModified("password")) {
     return;
@@ -64,5 +63,5 @@ schema.pre<UserModel>("save", async function (): Promise<void> {
     console.error(`Error hashing the password for the user ${this.name}`);
   }
 });
- 
+
 export const User = mongoose.model<UserModel>("User", schema);

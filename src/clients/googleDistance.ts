@@ -84,6 +84,7 @@ export class GoogleDistance {
     origem: Origem,
     destino: Destino
   ): Promise<DadosCorretosGoogleMatrix> {
+    // aqui ocorre a pesquisa no googleMatrix da distancia entre cidades
     const variavelDestino = (destino.cidade + "-" + destino.uf).replaceAll(
       " ",
       "+"

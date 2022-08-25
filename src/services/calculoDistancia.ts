@@ -29,27 +29,31 @@ export class DistanciaDados {
     try {
       if (
         !!(!cidadeOrigem.distancia?.[cidadeDestino.codigo_municipio_completo])
+        // checa se distancia entre cidades existe
       ) {
+        // caso não exista
         const responseGoogle = await this.googleDistance.buscaDistancia(
           { cidade: cidadeOrigem.nome_municipio, uf: cidadeOrigem.UF },
           { cidade: cidadeDestino.nome_municipio, uf: cidadeDestino.UF }
         );
-
+        // busca no google Matrix o resultado
 
         !cidadeOrigem.distancia ? (cidadeOrigem["distancia"] = {}) : "";
+        // se elemento distancia não existir cria ele
 
         cidadeOrigem.distancia[`${cidadeDestino.codigo_municipio_completo}`] = {
+          // adiciona aos dados da cidade essa nova informação
           cidade: responseGoogle.destino.cidade,
           UF: responseGoogle.destino.uf,
           distancia: responseGoogle.distancia,
         };
 
         this.updateInfoBanco(cidadeOrigem);
-
-        return this.normalizaDados(cidadeOrigem, cidadeDestino);
+        // atualiza o banco
       }
 
       return this.normalizaDados(cidadeOrigem, cidadeDestino);
+      //  retorna os dados já normalizados
     } catch (error) {
       throw new CalculoDistanciaInternoErro((error as Error).message);
     }
@@ -59,8 +63,9 @@ export class DistanciaDados {
     origem: Cidade,
     destino: Cidade
   ): DadosFinaisDistanciaDados {
-    // faz a configuração dos dados de acordo com o retorno da API
+    // faz a normalização dos dados de acordo com o retorno da API
     return {
+      // organiza os dados
       origem: {
         nome_municipio: origem.nome_municipio,
         UF: origem.UF,
@@ -81,6 +86,7 @@ export class DistanciaDados {
   }
 
   private async updateInfoBanco(origem: Cidade): Promise<void> {
+    // atualiza o banco de dados
     const findOne = {
       codigo_municipio_completo: origem.codigo_municipio_completo,
     };

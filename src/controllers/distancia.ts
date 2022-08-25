@@ -11,6 +11,7 @@ import mongoose from "mongoose";
 export class DistanciaController {
   @Post("")
   public async pegaDistanciaUsuarioLogado(
+    // rota  aonde se pega a distancia entre as cidades
     req: Request,
     res: Response
   ): Promise<void> {

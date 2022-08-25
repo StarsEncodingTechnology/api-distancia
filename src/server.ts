@@ -14,37 +14,44 @@ export class SetupServer extends Server {
   }
 
   public async init(): Promise<void> {
+    // inicia as funções do server
     this.setupExpress();
     this.setupControllers();
     await this.dataBaseSetup();
   }
 
   private setupExpress(): void {
+    // configurações do express
     this.app.use(bodyParser.json());
+    
   }
 
   private setupControllers(): void {
+    // inicia os controlers do sistemas e as rotas utilizadas
     const distanciaController = new DistanciaController();
     const usersController = new UsersController();
     this.addControllers([distanciaController, usersController]);
   }
 
   private async dataBaseSetup(): Promise<void> {
+    // conecta com o DB
     await database.connect();
   }
 
   public close(): void {
+    // fecha conexão com o DB
     database.close();
   }
 
   
   public getApp(): Application {
+    // retorna o app
     return this.app;
   }
 
 
   public start(): void {
-    console.log("UAI")
+    // inicia servidor
     this.app.listen(this.port, () => {
       console.info("Server rodando em: " + this.port)
     })

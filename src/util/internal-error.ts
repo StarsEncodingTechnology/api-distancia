@@ -1,4 +1,5 @@
 export class InternalError extends Error {
+  // configura um erro interno extendendo o Error
   constructor(
     public message: string,
     protected code: number = 500,
