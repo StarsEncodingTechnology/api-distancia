@@ -1,8 +1,8 @@
 {
   "App": {
-    "port": "PORT",
+    "port": "",
     "database": {
-      "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/?retryWrites=true&w=majority",
+      "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/test?retryWrites=true&w=majority",
       "LOGIN_DB": "LOGIN_DB",
       "SENHA_DB": "SENHA_DB",
       "CONFIG_DB": "CONFIG_DB"
