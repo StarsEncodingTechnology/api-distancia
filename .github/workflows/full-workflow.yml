@@ -1,28 +1,30 @@
-name: Environment Variables Workflow
+name: Complete workflow
 
-on: [push]
-
-env:
-  WORKFLOW_VARIABLE: WORKFLOW
+on: ["push"]
 
 jobs:
-  job1:
+  build:
     runs-on: ubuntu-latest
-    env:
-      JOB_VARIABLE: JOB
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+
     steps:
-      - name: Run Commands with various variables
-        if: ${{ env.WORKFLOW_VARIABLE == 'WORKFLOW' }} # Example using context env
-        env:
-          STEP_VARIABLE: STEP
-          super_secret: ${{ secrets.GITHUB_TOKEN }}
-          super_tokenapi: ${{ secrets.Aprendendo.APITOKEN }}
-          super_SUPERSECRET: ${{ secrets.SECRETTESTE }}
-        run: |
-          echo "Hello World"
-          echo "This is the $WORKFLOW_VARIABLE environment variable"
-          echo "This is the $JOB_VARIABLE environment variable"
-          echo "This is the $STEP_VARIABLE environment variable"
-          echo "This is the $super_secret environment variable"
-          echo "This is the $super_tokenapi environment variable"
-          echo "This is the $super_SUPERSECRET environment variable"
+      env:
+        APITOKEN: ${{secrets.SECRETTESTE}}
+
+      - uses: actions/checkout@v2
+      - run: git fetch --prune --unshallow
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Run all tests
+        run: yarn test:unit
