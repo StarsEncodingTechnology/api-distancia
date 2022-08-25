@@ -3,7 +3,7 @@ name: Environment Variables Workflow
 on: [push]
 
 env:
-  WORKFLOW_VARIABLE: WORKFLOW
+  WORKFLOW_VARIABLE: WORKFL2OW
 
 jobs:
   job1:
@@ -12,7 +12,7 @@ jobs:
       JOB_VARIABLE: JOB
     steps:
       - name: Run Commands with various variables
-        if: ${{ env.WORKFLOW_VARIABLE == 'WORKFLOW' }} # Example using context env
+        if: ${{ env.WORKFLOW_VARIABLE == 'WORKF2LOW' }} # Example using context env
         env:
           STEP_VARIABLE: STEP
         run: |
