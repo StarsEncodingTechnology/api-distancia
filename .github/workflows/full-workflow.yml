@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       super_secret: ${{ secrets.SUPERSECRET  }}
-      super_secret2: ${{ secrets.SUPERSECRET  }}
+      teste: tes1
     steps:
       - name: Run Commands with a Secret
         if: ${{ env.super_secret != '' }}
-        run: echo 'TEM INFORMAÇÂO'
+        run: echo 'TEM INFORMAÇÂO env.teste'
       - if: ${{ env.super_secret == '' }}
-        run: echo 'NÃO TEM INFORMAÇÃO'
+        run: echo 'NÃO TEM INFORMAÇÃO env.teste'
