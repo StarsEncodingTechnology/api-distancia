@@ -10,10 +10,9 @@ jobs:
       matrix:
         node-version: [16.x]
 
-
     steps:
-        env:
-          APITOKEN: ${{secrets.SECRETTESTE}}
+      # env:
+      #   APITOKEN: ${{secrets.SECRETTESTE}}
 
       - uses: actions/checkout@v2
       - run: git fetch --prune --unshallow
