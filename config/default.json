@@ -1,6 +1,6 @@
 {
   "App": {
-    "port": 3000,
+    "port": "PORT",
     "database": {
       "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/?retryWrites=true&w=majority"
     },
