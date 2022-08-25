@@ -15,7 +15,7 @@
     "resources": {
       "googleDistancematrix": {
         "apiUrl": "https://maps.googleapis.com/maps/api/distancematrix/",
-        "APITOKEN": "APITOKEN"
+        "APITOKEN": "33"
       }
     }
   }
