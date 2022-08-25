@@ -1,11 +1,17 @@
 {
-    "App": {
-      "port": 3000,
-      "resources": {
-        "googleDistancematrix": {
-          "apiToken": "do-not-hard-code"
-        }
+  "App": {
+    "port": 3000,
+    "database": {
+      "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/test?retryWrites=true&w=majority"
+    },
+    "resources": {
+      "googleDistancematrix": {
+        "APITOKEN": "do-not-hard-code"
       }
     }
+  },
+
+  "logger": {
+    "enable": false
   }
-  
+}

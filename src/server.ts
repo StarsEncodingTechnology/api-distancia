@@ -7,6 +7,7 @@ import { Application } from "express";
 
 import * as database from "@src/database";
 import { UsersController } from "./controllers/users";
+import logger from "./logger";
 
 export class SetupServer extends Server {
   constructor(private port = 3000) {
@@ -38,9 +39,9 @@ export class SetupServer extends Server {
     await database.connect();
   }
 
-  public close(): void {
+   public async close(): Promise<void> {
     // fecha conexão com o DB
-    database.close();
+    await database.close();
   }
 
   
@@ -53,7 +54,7 @@ export class SetupServer extends Server {
   public start(): void {
     // inicia servidor
     this.app.listen(this.port, () => {
-      console.info("Server rodando em: " + this.port)
+      logger.info("Server rodando em: " + this.port)
     })
   }
 }

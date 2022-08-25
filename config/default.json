@@ -1,22 +1,25 @@
 {
   "App": {
-    "port": "",
+    "port": "3000",
     "database": {
-      "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/test?retryWrites=true&w=majority",
-      "LOGIN_DB": "LOGIN_DB",
-      "SENHA_DB": "SENHA_DB",
-      "CONFIG_DB": "CONFIG_DB"
-
+      "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/PRD?retryWrites=true&w=majority",
+      "LOGIN_DB": "***",
+      "SENHA_DB": "***",
+      "CONFIG_DB": "api-distancia.ja5itpk.mongodb.net"
     },
     "auth": {
-      "key": "PEDROELIASIJEIJGNBLF3J1038YG7HL12RNF0129F",
+      "key": "Pedro-test-hard",
       "tokenExpiresIn": "24h"
     },
     "resources": {
       "googleDistancematrix": {
         "apiUrl": "https://maps.googleapis.com/maps/api/distancematrix/",
-        "APITOKEN": "APITOKEN"
+        "APITOKEN": "***"
       }
+    },
+    "logger": {
+      "enabled": true,
+      "level": "info"
     }
   }
 }

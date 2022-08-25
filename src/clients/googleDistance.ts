@@ -94,7 +94,7 @@ export class GoogleDistance {
       " ",
       "+"
     );
-
+    
     const url: string = this.retiraCaracteresEspeciais(
       `${googledistancematrix.get(
         "apiUrl"

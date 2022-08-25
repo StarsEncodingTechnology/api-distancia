@@ -1,4 +1,5 @@
 import { GoogleDistance } from "@src/clients/googleDistance";
+import logger from "@src/logger";
 import { Cidade } from "@src/models/cidade";
 import { InternalError } from "@src/util/internal-error";
 
@@ -27,6 +28,7 @@ export class DistanciaDados {
     cidadeDestino: Cidade
   ): Promise<DadosFinaisDistanciaDados> {
     try {
+
       if (
         !!(!cidadeOrigem.distancia?.[cidadeDestino.codigo_municipio_completo])
         // checa se distancia entre cidades existe
@@ -55,6 +57,7 @@ export class DistanciaDados {
       return this.normalizaDados(cidadeOrigem, cidadeDestino);
       //  retorna os dados já normalizados
     } catch (error) {
+      logger.error(error)
       throw new CalculoDistanciaInternoErro((error as Error).message);
     }
   }

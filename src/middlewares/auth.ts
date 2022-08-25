@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import Authservice from '@src/services/auth';
+import logger from '@src/logger';
 
 
 // faz o test do token

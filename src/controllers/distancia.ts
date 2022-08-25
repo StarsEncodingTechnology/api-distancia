@@ -1,4 +1,5 @@
 import { ClassMiddleware, Controller, Get, Post } from "@overnightjs/core";
+import logger from "@src/logger";
 import { authMiddleware } from "@src/middlewares/auth";
 import { Cidade } from "@src/models/cidade";
 import { DistanciaDados } from "@src/services/calculoDistancia";
@@ -54,7 +55,7 @@ export class DistanciaController {
         if (err instanceof mongoose.Error.ValidationError) {
           res.status(422).send({ error: err.message });
         } else {
-          console.log(err.message);
+          logger.error(err.message);
           res.status(500).send({ error: "Internal Server Error" });
         }
       }

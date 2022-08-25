@@ -10,12 +10,13 @@ import {
 import * as dataBase from "@src/database";
 
 import { Cidade } from "@src/models/cidade";
+import  config  from "config";
 
 jest.mock("@src/clients/googleDistance");
 
-describe.skip("Teste em calculoDistancia Services", () => {
+describe("Teste em calculoDistancia Services", () => {
   beforeAll(async () => {
-    await dataBase.connect();
+    await dataBase.connect(config.get("App.database.mongoUrl"));
   });
 
   afterAll(async () => {

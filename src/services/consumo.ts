@@ -1,3 +1,4 @@
+import logger from "@src/logger";
 import { Consumo, User } from "@src/models/user";
 import { DataAtual } from "@src/util/dataAtual";
 import { Request } from "express";
@@ -25,6 +26,11 @@ export class AtualizaConsumo {
       }
 
       consumo[mesAno][diaAtual]++
+
+      if((consumo[mesAno][diaAtual] % 10) == 0){
+        logger.info(` Consumo atual: ` + consumo[mesAno][diaAtual] +`. Desse Usuario: ` + req.decoded?.email)
+      }
+
       await user.updateOne({consumo: consumo})
     }
   }
