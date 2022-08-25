@@ -1,22 +1,14 @@
-name: Environment Variables Workflow
+name: Secrets Workflow
 
 on: [push]
-
-env:
-  WORKFLOW_VARIABLE: WORKFL2OW
 
 jobs:
   job1:
     runs-on: ubuntu-latest
-    env:
-      JOB_VARIABLE: JOB
     steps:
-      - name: Run Commands with various variables
-        if: ${{ env.WORKFLOW_VARIABLE == 'WORKF2LOW' }} # Example using context env
+      - name: Run Commands with a Secret
         env:
-          STEP_VARIABLE: STEP
+          SECRET_VALUE: ${{ secrets.APITOKEN }}
         run: |
           echo "Hello World"
-          echo "This is the $WORKFLOW_VARIABLE environment variable"
-          echo "This is the $JOB_VARIABLE environment variable"
-          echo "This is the $STEP_VARIABLE environment variable"
+          echo "This is a secret value: $SECRET_VALUE"
