@@ -27,3 +27,10 @@ jobs:
 
       - name: Run all tests
         run: yarn test:unit
+
+      # - shell: bash
+      # if: github.ref == 'ref/heads/main'
+      # name: Cria um SSH de ket deploy
+      # env:
+      #   SSH_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+      # run: ./scripts/deplay.sh
