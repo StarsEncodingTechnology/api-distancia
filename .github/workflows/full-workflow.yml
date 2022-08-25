@@ -11,22 +11,22 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
       # - run: git fetch --prune --unshallow
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        # run: yarn --frozen-lockfile
+      # - name: Install dependencies
+      # run: yarn --frozen-lockfile
 
-        env:
-          STEP_VARIABLE: APITOKEN
+      env:
+        STEP_VARIABLE: APITOKEN
 
-        run: |
-          echo "Hello World"
+      run: |
+        echo "Hello World"
 
-      - name: Run all tests
-        # run: yarn test:unit
+      # - name: Run all tests
+      # run: yarn test:unit
