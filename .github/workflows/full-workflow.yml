@@ -11,6 +11,6 @@ jobs:
     steps:
       - name: Run Commands with a Secret
         if: ${{ env.super_secret != '' }}
-        run: echo 'TEM INFORMAÇÂO env.teste'
+        run: echo 'TEM INFORMAÇÂO $env.teste'
       - if: ${{ env.super_secret == '' }}
-        run: echo 'NÃO TEM INFORMAÇÃO env.teste'
+        run: echo 'NÃO TEM INFORMAÇÃO $env.teste'
