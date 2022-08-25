@@ -95,7 +95,7 @@ export class GoogleDistance {
       "+"
     );
 
-    console.log(googledistancematrix.get('APITOKEN'))
+    console.log("Teste: " + googledistancematrix.get('APITOKEN'))
     const url: string = this.retiraCaracteresEspeciais(
       `${googledistancematrix.get(
         "apiUrl"
