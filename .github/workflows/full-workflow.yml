@@ -5,10 +5,10 @@ on: [push]
 jobs:
   job1:
     runs-on: ubuntu-latest
+    env:
+      super_secret: ${{ secrets.APITOKEN }}
     steps:
       - name: Run Commands with a Secret
-        env:
-          super_secret: ${{ secrets.APITOKEN }}
         if: ${{ env.super_secret != '' }}
         run: echo 'TEM INFORMAÇÂO'
       - if: ${{ env.super_secret == '' }}
