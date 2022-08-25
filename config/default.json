@@ -2,7 +2,11 @@
   "App": {
     "port": "PORT",
     "database": {
-      "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/?retryWrites=true&w=majority"
+      "mongoUrl": "mongodb+srv://LOGIN_DB:SENHA_DB@CONFIG_DB/?retryWrites=true&w=majority",
+      "LOGIN_DB": "LOGIN_DB",
+      "SENHA_DB": "SENHA_DB",
+      "CONFIG_DB": "CONFIG_DB"
+
     },
     "auth": {
       "key": "PEDROELIASIJEIJGNBLF3J1038YG7HL12RNF0129F",
@@ -10,7 +14,8 @@
     },
     "resources": {
       "googleDistancematrix": {
-        "apiUrl": "https://maps.googleapis.com/maps/api/distancematrix/"
+        "apiUrl": "https://maps.googleapis.com/maps/api/distancematrix/",
+        "APITOKEN": "APITOKEN"
       }
     }
   }

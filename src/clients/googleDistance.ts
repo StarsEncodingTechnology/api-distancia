@@ -99,7 +99,7 @@ export class GoogleDistance {
       `${googledistancematrix.get(
         "apiUrl"
       )}json?origins=${variavelOrigem}&destinations=${variavelDestino}&key=${
-        process.env["APITOKEN"]
+        googledistancematrix.get('APITOKEN')
       }`
     );
 
