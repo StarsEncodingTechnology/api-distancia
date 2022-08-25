@@ -15,7 +15,7 @@ jobs:
         if: ${{ env.WORKFLOW_VARIABLE == 'WORKFLOW' }} # Example using context env
         env:
           STEP_VARIABLE: STEP
-          super_secret: ${{ secrets.SUPERSECRET }}
+          super_secret: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Hello World"
           echo "This is the $WORKFLOW_VARIABLE environment variable"
