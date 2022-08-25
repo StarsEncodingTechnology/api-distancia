@@ -16,7 +16,7 @@ jobs:
         env:
           STEP_VARIABLE: STEP
           super_secret: ${{ secrets.GITHUB_TOKEN }}
-          super_tokenapi: ${{ secrets.APITOKEN }}
+          super_tokenapi: ${{ secrets.Aprendendo.APITOKEN }}
           super_SUPERSECRET: ${{ secrets.SUPERSECRET }}
         run: |
           echo "Hello World"
