@@ -120,7 +120,6 @@ export class GoogleDistance {
         // lança um erro de distancia vazia
       }
     } catch (error) {
-      console.log((error as Error).message);
       if (error instanceof Error && HTTPUtil.Request.isRequestError(error)) {
         //  caso a api retorna um erro
         const err = HTTPUtil.Request.extractErrorData(error);

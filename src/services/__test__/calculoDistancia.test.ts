@@ -13,7 +13,7 @@ import { Cidade } from "@src/models/cidade";
 
 jest.mock("@src/clients/googleDistance");
 
-describe("Teste em calculoDistancia Services", () => {
+describe.skip("Teste em calculoDistancia Services", () => {
   beforeAll(async () => {
     await dataBase.connect();
   });
