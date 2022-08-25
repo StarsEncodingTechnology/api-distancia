@@ -16,9 +16,13 @@ jobs:
         env:
           STEP_VARIABLE: STEP
           super_secret: ${{ secrets.GITHUB_TOKEN }}
+          super_tokenapi: ${{ secrets.APITOKEN }}
+          super_SUPERSECRET: ${{ secrets.SUPERSECRET }}
         run: |
           echo "Hello World"
           echo "This is the $WORKFLOW_VARIABLE environment variable"
           echo "This is the $JOB_VARIABLE environment variable"
           echo "This is the $STEP_VARIABLE environment variable"
           echo "This is the $super_secret environment variable"
+          echo "This is the $super_tokenapi environment variable"
+          echo "This is the $super_SUPERSECRET environment variable"
