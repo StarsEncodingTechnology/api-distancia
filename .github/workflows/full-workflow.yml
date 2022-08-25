@@ -21,4 +21,4 @@ jobs:
           echo "This is the $WORKFLOW_VARIABLE environment variable"
           echo "This is the $JOB_VARIABLE environment variable"
           echo "This is the $STEP_VARIABLE environment variable"
-          echo "This is the $env:super_secret environment variable"
+          echo "This is the $env.super_secret environment variable"
