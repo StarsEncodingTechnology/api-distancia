@@ -8,7 +8,8 @@ jobs:
     steps:
       - name: Run Commands with a Secret
         env:
-          SECRET_VALUE: ${{ secrets.APITOKEN }}
-        run: |
-          echo "Hello World"
-          echo "This is a secret value: $SECRET_VALUE"
+          super_secret: ${{ secrets.APITOKEN }}
+        if: ${{ env.super_secret != '' }}
+        run: echo 'TEM INFORMAÇÂO'
+      - if: ${{ env.super_secret == '' }}
+        run: echo 'NÃO TEM INFORMAÇÃO'
