@@ -20,7 +20,7 @@ process.on("uncaughtException", (error) => {
         `App exiting due to an uncaught expception: ${error}` 
     );
     process.exit(ExitStatus.Failure);
-});
+}); 
 
 (async () => {
   // parte inicial de tudo
