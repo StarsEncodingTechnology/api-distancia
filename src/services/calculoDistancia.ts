@@ -1,7 +1,7 @@
 import { GoogleDistance } from "@src/clients/googleDistance";
 import logger from "@src/logger";
 import { Cidade } from "@src/models/cidade";
-import { InternalError } from "@src/util/internal-error";
+import { InternalError } from "@src/util/errors/internal-error";
 
 export interface CidadeDadosFinais
   extends Omit<Cidade, "distancia" | "municipio"> {}
