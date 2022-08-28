@@ -39,7 +39,8 @@ describe("Testes funcionais do Users", () => {
 
     expect(response.body).toEqual({
       code: 422,
-      error: "User validation failed: email: Path `email` is required.",
+      error: "Unprocessable Entity",
+      message: "User validation failed: email: Path `email` is required."
     });
   });
 
@@ -57,7 +58,9 @@ describe("Testes funcionais do Users", () => {
 
     expect(response.body).toEqual({
       code: 409,
-      error: "User validation failed: email: already exists in the database.",
+      error: "Conflict",
+      message: "User validation failed: email: already exists in the database.",
+
     });
   });
 

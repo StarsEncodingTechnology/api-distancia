@@ -1,7 +1,8 @@
 import { Controller, Post } from "@overnightjs/core";
-import {  User } from "@src/models/user";
+import { User } from "@src/models/user";
 import AuthService from "@src/services/auth";
 import { DataAtual } from "@src/util/dataAtual";
+import ApiError from "@src/util/errors/api-error";
 import { Request, Response } from "express";
 import { BaseController } from ".";
 
@@ -41,35 +42,20 @@ export class UsersController extends BaseController {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {
-      return res.status(401).send({
+      return this.SendErrorResponse(res, {
         code: 401,
-        error: "User not found!",
+        message: "User not found!",
       });
     }
 
     if (!(await AuthService.comparePassword(password, user.password))) {
-      return res.status(401).send({
+      return this.SendErrorResponse(res, {
         code: 401,
-        error: 'Password does not match!'
-      })
+        message: "Password does not match!",
+      });
     }
 
     const token = AuthService.generateToken(user.toJSON());
-    return res.status(200).send({...user.toJSON(),...{ token }});
+    return res.status(200).send({ ...user.toJSON(), ...{ token } });
   }
-
 }
-
-/*
-const user: User = {
-    name: "pedro",
-    email: "pedro_eliias",
-    password: "1234",
-    consumo: {
-        "012022": {
-            "01": 5,
-            "02": 2
-        }
-    }
-}
-*/

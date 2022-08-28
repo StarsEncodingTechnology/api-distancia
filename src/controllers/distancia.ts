@@ -1,15 +1,14 @@
-import { ClassMiddleware, Controller, Get, Post } from "@overnightjs/core";
-import logger from "@src/logger";
+import { ClassMiddleware, Controller, Post } from "@overnightjs/core";
 import { authMiddleware } from "@src/middlewares/auth";
 import { Cidade } from "@src/models/cidade";
 import { DistanciaDados } from "@src/services/calculoDistancia";
 import { AtualizaConsumo } from "@src/services/consumo";
 import { Request, Response } from "express";
-import mongoose from "mongoose";
+import { BaseController } from ".";
 
 @Controller("distancia")
 @ClassMiddleware(authMiddleware)
-export class DistanciaController {
+export class DistanciaController extends BaseController {
   @Post("")
   public async pegaDistanciaUsuarioLogado(
     // rota  aonde se pega a distancia entre as cidades
@@ -18,7 +17,6 @@ export class DistanciaController {
   ): Promise<void> {
     const ibgeOrigem = req.body.ibge_origem;
     const ibgeDestino = req.body.ibge_destino;
- 
 
     if (!ibgeOrigem || !ibgeDestino) {
       res.status(400).send({
@@ -49,15 +47,9 @@ export class DistanciaController {
             message: "ibge_origem or ibge_destino Invalid",
           });
         }
-        AtualizaConsumo.adicionaUmConsumo(req)
+        AtualizaConsumo.adicionaUmConsumo(req);
       } catch (error) {
-        const err = error as Error;
-        if (err instanceof mongoose.Error.ValidationError) {
-          res.status(422).send({ error: err.message });
-        } else {
-          logger.error(err.message);
-          res.status(500).send({ error: "Internal Server Error" });
-        }
+        this.sendCreateUpdateErrorResponse(res, error);
       }
     }
   }
