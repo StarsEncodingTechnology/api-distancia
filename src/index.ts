@@ -25,6 +25,8 @@ process.on("uncaughtException", (error) => {
 (async () => {
   // parte inicial de tudo
   try {
+    logger.info((config.get("App.port")));
+    return
     const server = new SetupServer(config.get("App.port"));
     await server.init();
     server.start();
