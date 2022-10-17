@@ -1,15 +1,39 @@
-import { ClassMiddleware, Controller, Post } from "@overnightjs/core";
+import {
+  ClassMiddleware,
+  Controller,
+  Middleware,
+  Post,
+} from "@overnightjs/core";
 import { authMiddleware } from "@src/middlewares/auth";
 import { Cidade } from "@src/models/cidade";
 import { DistanciaDados } from "@src/services/calculoDistancia";
 import { AtualizaConsumo } from "@src/services/consumo";
+import ApiError from "@src/util/errors/api-error";
 import { Request, Response } from "express";
+import { rateLimit } from "express-rate-limit";
 import { BaseController } from ".";
+
+const rateLimiter = rateLimit({
+  windowMs: 1 * 3 * 1000,
+  // minutos * segundos * milisegundos
+  max: 1,
+  keyGenerator(req: Request): string {
+    return req.ip;
+  },
+  handler(_, res: Response): void {
+    res
+      .status(429)
+      .send(ApiError.format({ code: 429, message: "Limite de 10 requisições atingido" }));
+  },
+});
+
+const distanciaDados = new DistanciaDados();
 
 @Controller("distancia")
 @ClassMiddleware(authMiddleware)
 export class DistanciaController extends BaseController {
   @Post("")
+  @Middleware(rateLimiter)
   public async pegaDistanciaUsuarioLogado(
     // rota  aonde se pega a distancia entre as cidades
     req: Request,
@@ -32,13 +56,13 @@ export class DistanciaController extends BaseController {
           codigo_municipio_completo: ibgeDestino,
         });
 
-        const distanciaDados = new DistanciaDados();
-
         if (dadosOrigem != null && dadosDestino != null) {
           const result = await distanciaDados.processandoDadosCidades(
             dadosOrigem,
             dadosDestino
           );
+
+          await AtualizaConsumo.adicionaUmConsumo(req);
 
           res.status(200).send(result);
         } else {
@@ -47,7 +71,6 @@ export class DistanciaController extends BaseController {
             message: "ibge_origem or ibge_destino Invalid",
           });
         }
-        AtualizaConsumo.adicionaUmConsumo(req);
       } catch (error) {
         this.sendCreateUpdateErrorResponse(res, error);
       }

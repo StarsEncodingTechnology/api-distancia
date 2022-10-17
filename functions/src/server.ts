@@ -11,7 +11,7 @@ import logger from "./logger";
 import cors from "cors";
 
 export class SetupServer extends Server {
-  constructor(private port = 3000) {
+  constructor(private port = "3000") {
     super();
   }
 

@@ -1,3 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config({path: __dirname+"../../../.env"})
+
 import respostaCorretaService from "@test/fixtures/resposta_distancia_service.json";
 import { GoogleDistance } from "@src/clients/googleDistance";
 import googleDistanciaRespostaNormalizada from "@test/fixtures/resposta_distancia_client.json";
@@ -10,13 +13,12 @@ import {
 import * as dataBase from "@src/database";
 
 import { Cidade } from "@src/models/cidade";
-import  config  from "config";
 
 jest.mock("@src/clients/googleDistance");
 
 describe("Teste em calculoDistancia Services", () => {
   beforeAll(async () => {
-    await dataBase.connect(config.get("App.database.mongoUrl"));
+    await dataBase.connect();
   });
 
   afterAll(async () => {
@@ -71,9 +73,22 @@ describe("Teste em calculoDistancia Services", () => {
       googleDistanciaRespostaNormalizada
     );
 
-    let cidadeOrigem: Cidade = (await Cidade.findOne({
+    const cidadeOrigem: Cidade = {
+      UF: "SP",
+      nome_UF: "SÃO PAULO",
+      municipio: "16200",
       codigo_municipio_completo: "3516200TEST",
-    })) as Cidade;
+      nome_municipio: "FRANCA",
+      codigo_UF: "35",
+      distancia: {
+        "3513207": {
+          cidade: "CRISTAIS PAULISTA",
+          UF: "SP",
+          distancia: 21,
+        },
+      },
+    };
+
 
     cidadeOrigem.distancia = undefined;
     // delete não funcionou

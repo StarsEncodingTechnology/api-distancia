@@ -1,11 +1,8 @@
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname + "../../.env" });
+
 import { InternalError } from "@src/util/errors/internal-error";
 import * as HTTPUtil from "@src/util/request";
-import config, { IConfig } from "config";
-
-
-const googledistancematrix: IConfig = config.get(
-  "App.resources.googleDistancematrix"
-);
 
 export interface Destino {
   cidade: string;
@@ -94,13 +91,9 @@ export class GoogleDistance {
       " ",
       "+"
     );
-    
+
     const url: string = this.retiraCaracteresEspeciais(
-      `${googledistancematrix.get(
-        "apiUrl"
-      )}json?origins=${variavelOrigem}&destinations=${variavelDestino}&key=${
-        googledistancematrix.get('APITOKEN')
-      }`
+      `${process.env.googleDistancematrix}json?origins=${variavelOrigem}&destinations=${variavelDestino}&key=${process.env.APITOKEN}`
     );
 
     try {
@@ -143,7 +136,7 @@ export class GoogleDistance {
       (element) => !!element.distance.text
     )?.distance.text;
     const valorDistanciaNumber: number = Number.parseFloat(
-      (valorDistance?.replace(",",""))?.split(" ")[0] as string
+      valorDistance?.replace(",", "")?.split(" ")[0] as string
     );
 
     return {

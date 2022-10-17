@@ -18,10 +18,14 @@ describe("Distancia entre cidades teste funcional", () => {
 
   let token: string;
   beforeEach(async () => {
-    await User.deleteMany({});
+    await User.findOneAndDelete({email: "testeTESTE@testeTESTE.com"});
     const user = await new User(defaultUser).save();
     token = AuthService.generateToken(user.toJSON());
   });
+
+  afterAll(async () => {
+    await User.findOneAndDelete({email: "testeTESTE@testeTESTE.com"});
+  })
 
   it("deve retonar a distancia entre as cidades", async () => {
     const { body, status } = await global.testRequest

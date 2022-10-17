@@ -1,6 +1,8 @@
+import * as dotenv from "dotenv";
+dotenv.config({path: ".env"})
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import config from "config";
 import { User } from "@src/models/user";
 
 export interface DecodedUser extends Omit<User, "_id"> {
@@ -27,13 +29,13 @@ export default class AuthService {
 
   public static generateToken(payload: object): string {
     // gera um token com base nos valores passados
-    return jwt.sign(payload, config.get('App.auth.key'), {
-      expiresIn: config.get('App.auth.tokenExpiresIn'),
+    return jwt.sign(payload, process.env.AUTHKEY as string, {
+      expiresIn: process.env.AUTHTOKENEXPIRESIN,
     });
   }
 
   public static decodeToken(token: string): DecodedUser {
     // decodifica o token e verifica se ele é valido
-    return jwt.verify(token, config.get('App.auth.key')) as DecodedUser;
+    return jwt.verify(token, process.env.AUTHKEY as string) as DecodedUser;
   }
 }

@@ -1,5 +1,7 @@
+import * as dotenv from "dotenv";
+dotenv.config({path: __dirname+"../.env"})
+
 import { SetupServer } from "./server";
-import config from "config";
 import logger from "./logger";
 
 enum ExitStatus {
@@ -25,8 +27,7 @@ process.on("uncaughtException", (error) => {
 (async () => {
   // parte inicial de tudo
   try {
-    logger.info((config.get("App.port")));
-     const server = new SetupServer(config.get("App.port"));
+    const server = new SetupServer(process.env.PORT);
     await server.init();
     server.start();
 
