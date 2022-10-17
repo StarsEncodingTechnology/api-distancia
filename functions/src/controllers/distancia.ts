@@ -13,7 +13,10 @@ import { Request, Response } from "express";
 import { rateLimit } from "express-rate-limit";
 import { BaseController } from ".";
 
+
+
 const rateLimiter = rateLimit({
+  // middleware de limitador d requisições
   windowMs: 1 * 3 * 1000,
   // minutos * segundos * milisegundos
   max: 1,

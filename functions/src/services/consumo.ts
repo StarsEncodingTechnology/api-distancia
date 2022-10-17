@@ -25,6 +25,10 @@ export class AtualizaConsumo {
           };
         }
 
+        // quando for subir isso para o aberto mexer nessa parte do consumo 
+        // usando o node-cache
+        // https://youtu.be/NSPZxBC7G4o
+
         consumo[mesAno][diaAtual]++;
         await User.findByIdAndUpdate(req.decoded?.id, { consumo: consumo });
       }
