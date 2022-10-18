@@ -15,20 +15,20 @@ import { BaseController } from ".";
 
 
 
-const rateLimiter = rateLimit({
-  // middleware de limitador d requisições
-  windowMs: 1 * 3 * 1000,
-  // minutos * segundos * milisegundos
-  max: 1,
-  keyGenerator(req: Request): string {
-    return req.ip;
-  },
-  handler(_, res: Response): void {
-    res
-      .status(429)
-      .send(ApiError.format({ code: 429, message: "Limite de 10 requisições atingido" }));
-  },
-});
+// const rateLimiter = rateLimit({
+//   // middleware de limitador d requisições
+//   windowMs: 1 * 2 * 1000,
+//   // minutos * segundos * milisegundos
+//   max: 1,
+//   keyGenerator(req: Request): string {
+//     return req.ip;
+//   },
+//   handler(_, res: Response): void {
+//     res
+//       .status(429)
+//       .send(ApiError.format({ code: 429, message: "Limite de 10 requisições atingido" }));
+//   },
+// });
 
 const distanciaDados = new DistanciaDados();
 
@@ -36,7 +36,7 @@ const distanciaDados = new DistanciaDados();
 @ClassMiddleware(authMiddleware)
 export class DistanciaController extends BaseController {
   @Post("")
-  @Middleware(rateLimiter)
+  // @Middleware(rateLimiter)
   public async pegaDistanciaUsuarioLogado(
     // rota  aonde se pega a distancia entre as cidades
     req: Request,
@@ -65,7 +65,7 @@ export class DistanciaController extends BaseController {
             dadosDestino
           );
 
-          await AtualizaConsumo.adicionaUmConsumo(req);
+        
 
           res.status(200).send(result);
         } else {
@@ -74,6 +74,8 @@ export class DistanciaController extends BaseController {
             message: "ibge_origem or ibge_destino Invalid",
           });
         }
+
+        await AtualizaConsumo.adicionaUmConsumo(req);
       } catch (error) {
         this.sendCreateUpdateErrorResponse(res, error);
       }

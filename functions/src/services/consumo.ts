@@ -11,7 +11,7 @@ export class AtualizaConsumo {
     const mesAno = dataAtual.mesAtual() + dataAtual.anoAtual();
     const diaAtual = dataAtual.diaAtual();
 
-    setTimeout(async function () {
+
       const user = await User.findById(req.decoded?.id);
       if (user) {
         let consumo: Consumo = user.consumo;
@@ -32,6 +32,5 @@ export class AtualizaConsumo {
         consumo[mesAno][diaAtual]++;
         await User.findByIdAndUpdate(req.decoded?.id, { consumo: consumo });
       }
-    }, 10);
   }
 }
