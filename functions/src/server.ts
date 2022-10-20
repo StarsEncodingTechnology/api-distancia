@@ -50,7 +50,7 @@ export class SetupServer extends Server {
     await database.close();
   }
 
-  public getApp(): Application {
+  get getApp(): Application {
     // retorna o app
     return this.app;
   }

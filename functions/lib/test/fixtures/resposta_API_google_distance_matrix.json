@@ -1,0 +1,26 @@
+{
+    "destination_addresses": [
+        "Cristais Paulista, State of São Paulo, 14460-000, Brazil"
+    ],
+    "origin_addresses": [
+        "Franca - State of São Paulo, Brazil"
+    ],
+    "rows": [
+        {
+            "elements": [
+                {
+                    "distance": {
+                        "text": "21.0 km",
+                        "value": 21043
+                    },
+                    "duration": {
+                        "text": "19 mins",
+                        "value": 1164
+                    },
+                    "status": "OK"
+                }
+            ]
+        }
+    ],
+    "status": "OK"
+}

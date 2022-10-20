@@ -1,51 +1,12 @@
 import * as dotenv from "dotenv";
-dotenv.config({path: __dirname+"../.env"})
+dotenv.config({ path: __dirname + "../.env" });
 
+import * as functions from "firebase-functions";
 import { SetupServer } from "./server";
-import logger from "./logger";
-
-enum ExitStatus {
-  Failure = 1,
-  Success = 0,
-}
-
-process.on("unhandledRejection", (reason, promise) => {
-  logger.error(
-    `App exiting due to an  unhandled promise: ${promise} and reason: ${reason}`
-  );
- 
-  throw reason;
-});
-
-process.on("uncaughtException", (error) => {
-    logger.error(
-        `App exiting due to an uncaught expception: ${error}` 
-    );
-    process.exit(ExitStatus.Failure);
-}); 
 
 (async () => {
-  // parte inicial de tudo
-  try {
-    const server = new SetupServer(process.env.PORT);
-    await server.init();
-    server.start();
+  const server = new SetupServer(process.env.PORT);
+  await server.init();
 
-    const exitSignals: NodeJS.Signals[] = ["SIGINT", "SIGTERM", "SIGURG"];
-
-    exitSignals.map((sig) =>
-      process.on(sig, async () => {
-        try {
-          await server.close();
-          process.exit(ExitStatus.Success);
-        } catch (e) {
-          logger.error(`App exited with error: ${e}`);
-          process.exit(ExitStatus.Failure);
-        }
-      })
-    );
-  } catch (e) {
-    logger.error(`App exited with error: ${e}`);
-    process.exit(ExitStatus.Failure);
-  }
+  exports.form = functions.https.onRequest(server.getApp);
 })();

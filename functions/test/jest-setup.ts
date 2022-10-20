@@ -11,7 +11,7 @@ beforeAll(async () => {
   // que é a configuração do servidor
   await server.init();
   // inicia o servidor
-  global.testRequest = supertest(server.getApp());
+  global.testRequest = supertest(server.getApp);
   // coloca valor no testRequest
   // sendo ele o app() do servidor
 });

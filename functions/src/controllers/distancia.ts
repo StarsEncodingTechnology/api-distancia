@@ -15,20 +15,20 @@ import { BaseController } from ".";
 
 
 
-// const rateLimiter = rateLimit({
-//   // middleware de limitador d requisições
-//   windowMs: 1 * 2 * 1000,
-//   // minutos * segundos * milisegundos
-//   max: 1,
-//   keyGenerator(req: Request): string {
-//     return req.ip;
-//   },
-//   handler(_, res: Response): void {
-//     res
-//       .status(429)
-//       .send(ApiError.format({ code: 429, message: "Limite de 10 requisições atingido" }));
-//   },
-// });
+const rateLimiter = rateLimit({
+  // middleware de limitador d requisições
+  windowMs: 1 * 60 * 1000,
+  // minutos * segundos * milisegundos
+  max: 40,
+  keyGenerator(req: Request): string {
+    return req.ip;
+  },
+  handler(_, res: Response): void {
+    res
+      .status(429)
+      .send(ApiError.format({ code: 429, message: "Limite de 40 requisições atingido" }));
+  },
+});
 
 const distanciaDados = new DistanciaDados();
 
@@ -36,7 +36,7 @@ const distanciaDados = new DistanciaDados();
 @ClassMiddleware(authMiddleware)
 export class DistanciaController extends BaseController {
   @Post("")
-  // @Middleware(rateLimiter)
+  @Middleware(rateLimiter)
   public async pegaDistanciaUsuarioLogado(
     // rota  aonde se pega a distancia entre as cidades
     req: Request,
