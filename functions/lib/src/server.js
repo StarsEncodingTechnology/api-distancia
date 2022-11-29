@@ -38,7 +38,7 @@ const logger_1 = __importDefault(require("./logger"));
 const cors_1 = __importDefault(require("cors"));
 class SetupServer extends core_1.Server {
     port;
-    constructor(port = "3000") {
+    constructor(port = "3050") {
         super();
         this.port = port;
     }
@@ -51,7 +51,7 @@ class SetupServer extends core_1.Server {
         this.app.use(body_parser_1.default.json());
         this.app.use((0, express_pino_logger_1.default)({ logger: logger_1.default }));
         this.app.use((0, cors_1.default)({
-            origin: '*',
+            origin: "*",
         }));
     }
     setupControllers() {

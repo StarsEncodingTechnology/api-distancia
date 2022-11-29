@@ -16,14 +16,12 @@ const rateLimiter = rateLimit({
     return req.ip;
   },
   handler(_, res: Response): void {
-    res
-      .status(429)
-      .send(
-        ApiError.format({
-          code: 429,
-          message: "Limite de 15 requisições atingido",
-        })
-      );
+    res.status(429).send(
+      ApiError.format({
+        code: 429,
+        message: "Limite de 15 requisições atingido",
+      })
+    );
   },
 });
 

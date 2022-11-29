@@ -8,9 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DistanciaController = void 0;
 const core_1 = require("@overnightjs/core");
@@ -18,21 +15,7 @@ const auth_1 = require("@src/middlewares/auth");
 const cidade_1 = require("@src/models/cidade");
 const calculoDistancia_1 = require("@src/services/calculoDistancia");
 const consumo_1 = require("@src/services/consumo");
-const api_error_1 = __importDefault(require("@src/util/errors/api-error"));
-const express_rate_limit_1 = require("express-rate-limit");
 const _1 = require(".");
-const rateLimiter = (0, express_rate_limit_1.rateLimit)({
-    windowMs: 1 * 60 * 1000,
-    max: 40,
-    keyGenerator(req) {
-        return req.ip;
-    },
-    handler(_, res) {
-        res
-            .status(429)
-            .send(api_error_1.default.format({ code: 429, message: "Limite de 40 requisições atingido" }));
-    },
-});
 const distanciaDados = new calculoDistancia_1.DistanciaDados();
 let DistanciaController = class DistanciaController extends _1.BaseController {
     async pegaDistanciaUsuarioLogado(req, res) {
@@ -72,7 +55,6 @@ let DistanciaController = class DistanciaController extends _1.BaseController {
 };
 __decorate([
     (0, core_1.Post)(""),
-    (0, core_1.Middleware)(rateLimiter),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)

@@ -11,7 +11,7 @@ import logger from "./logger";
 import cors from "cors";
 
 export class SetupServer extends Server {
-  constructor(private port = "3000") {
+  constructor(private port = "3050") {
     super();
   }
 
@@ -28,7 +28,7 @@ export class SetupServer extends Server {
     this.app.use(expressPino({ logger }));
     this.app.use(
       cors({
-        origin: '*',
+        origin: "*",
       })
     );
   }

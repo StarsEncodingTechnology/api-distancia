@@ -27,9 +27,7 @@ const rateLimiter = (0, express_rate_limit_1.rateLimit)({
         return req.ip;
     },
     handler(_, res) {
-        res
-            .status(429)
-            .send(api_error_1.default.format({
+        res.status(429).send(api_error_1.default.format({
             code: 429,
             message: "Limite de 15 requisições atingido",
         }));

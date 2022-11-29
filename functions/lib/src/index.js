@@ -25,11 +25,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 dotenv.config({ path: __dirname + "../.env" });
-const functions = __importStar(require("firebase-functions"));
 const server_1 = require("./server");
 (async () => {
     const server = new server_1.SetupServer(process.env.PORT);
     await server.init();
-    exports.form = functions.https.onRequest(server.getApp);
+    server.start();
 })();
 //# sourceMappingURL=index.js.map
