@@ -4,10 +4,9 @@ import bodyParser from "body-parser";
 
 import { DistanciaController } from "./controllers/distancia";
 import { Application } from "express";
-import expressPino from "express-pino-logger";
 import * as database from "@src/database";
 import { UsersController } from "./controllers/users";
-import logger from "./logger";
+
 import cors from "cors";
 
 export class SetupServer extends Server {
@@ -25,7 +24,6 @@ export class SetupServer extends Server {
   private setupExpress(): void {
     // configurações do express
     this.app.use(bodyParser.json());
-    this.app.use(expressPino({ logger }));
     this.app.use(
       cors({
         origin: "*",
@@ -58,7 +56,7 @@ export class SetupServer extends Server {
   public start(): void {
     // inicia servidor
     this.app.listen(this.port, () => {
-      logger.info("Server rodando em: " + this.port);
+      console.info("Server rodando em: " + this.port);
     });
   }
 }

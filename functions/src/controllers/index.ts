@@ -1,4 +1,3 @@
-import logger from "@src/logger";
 import { CUSTOM_VALIDATION } from "@src/models/user";
 import ApiError, { APIError } from "@src/util/errors/api-error";
 import { Response } from "express";
@@ -11,9 +10,14 @@ export abstract class BaseController {
       const clientErrors = this.handleClientErrors(error);
       res
         .status(clientErrors.code)
-        .send(ApiError.format({ code: clientErrors.code, message: clientErrors.error }));
+        .send(
+          ApiError.format({
+            code: clientErrors.code,
+            message: clientErrors.error,
+          })
+        );
     } else {
-      logger.error(error);
+      console.error(error);
       res
         .status(500)
         .send(ApiError.format({ code: 500, message: "Something went wrong!" }));
