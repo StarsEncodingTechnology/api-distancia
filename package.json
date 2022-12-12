@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node lib/src/index.js",
-    "start:dev": "ts-node-dev --transpile-only src/index.ts  | pino-pretty -c",
+    "start:dev": "ts-node-dev --transpile-only src/index.ts",
     "lint": "eslint ./src ./test --ext .ts",
     "test": "cls && yarn test:unit && yarn test:functional",
     "test:unit": "jest --runInBand ",
