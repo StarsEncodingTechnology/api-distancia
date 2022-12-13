@@ -58,7 +58,7 @@ export class SetupServer extends Server {
   public start(): void {
     // inicia servidor
     this.app.listen(this.port, () => {
-      console.info("Server rodando em: " + this.port);
+      logger.info("Server rodando em: " + this.port);
     });
   }
 }

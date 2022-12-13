@@ -1,4 +1,5 @@
 import { GoogleDistance } from "@src/clients/googleDistance";
+import logger from "@src/logger";
 import { Cidade } from "@src/models/cidade";
 import { InternalError } from "@src/util/errors/internal-error";
 
@@ -55,7 +56,7 @@ export class DistanciaDados {
       return this.normalizaDados(cidadeOrigem, cidadeDestino);
       //  retorna os dados já normalizados
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       throw new CalculoDistanciaInternoErro((error as Error).message);
     }
   }
