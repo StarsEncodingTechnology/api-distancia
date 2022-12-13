@@ -6,7 +6,8 @@ import { DistanciaController } from "./controllers/distancia";
 import { Application } from "express";
 import * as database from "@src/database";
 import { UsersController } from "./controllers/users";
-
+import expressPino from "express-pino-logger";
+import logger from "./logger";
 import cors from "cors";
 
 export class SetupServer extends Server {
@@ -24,6 +25,7 @@ export class SetupServer extends Server {
   private setupExpress(): void {
     // configurações do express
     this.app.use(bodyParser.json());
+    this.app.use(expressPino({ logger }));
     this.app.use(
       cors({
         origin: "*",
